@@ -1,68 +1,108 @@
-# Eugene Strat PHASE 1Product Requirements Document (PRD)
+---
+rationale: Minimal Phase 1 PRD for Eugene Strat focusing on authentication and empty page structure foundation
+version: 1.0.0
+changelog:
+  - 1.0.0: Initial minimal PRD for Phase 1 - Supabase auth + 4 empty pages with basic navigation
+links:
+  - docs/brief.md: Complete product vision and feature requirements
+  - docs/front-end-specs.md: Detailed neo-brutalist design system and component specifications
+---
+
+# Eugene Strat Product Requirements Document (PRD)
 
 ## Goals and Background Context
 
 ### Goals
 
-- Establish foundation infrastructure and authentication system for strategic visual planning tool
-- Deliver core TacticalMap functionality enabling users to visualize projects on cost/benefit matrix 
-- Build universal navigation and XP gamification for tactical map.
-- Provide seamless authentication and onboarding experience for idea validation phase (landing page combined with login page/onboarding, no detailed yet - for phase 2)
+• **Basic Authentication Infrastructure**: Deliver Supabase email/password authentication enabling user access
+• **Minimal Page Structure**: Create 4 empty authenticated pages with basic navigation  
+• **Universal Component Placeholders**: Establish header structure with non-functional placeholder elements
+• **Desktop Navigation Foundation**: Implement functional 2×2 navigation grid for page switching
 
 ### Background Context
 
-Eugene Strat addresses a gap between having multiple projects and making strategic decisions about what to execute next. The application aims to provide a "strategic visual overview (map)" before execution, by assessing cost/benefit/priority to projects, user can assess their project portfolio and make decisions about what to focus on next.
+Eugene Strat addresses the gap between strategic thinking and task execution. This Phase 1 PRD focuses on establishing the absolute minimum infrastructure—authentication and empty page structure—that will serve as foundation for future feature development.
 
-This Phase 1 PRD focuses exclusively on establishing the authentication foundation and core TacticalMap visualization - the strategic heart of the application. By implementing the cost/benefit matrix with project positioning, users can immediately gain helicopter view of their initiatives and apply critical thinking to project selection. The gamified XP system, achievements system and Boss Battle prioritization add motivational elements while maintaining the professional, neo-brutalist design philosophy.
+This minimal viable foundation enables authenticated users to access the application and navigate between the four core pages, establishing the basic architecture without any business logic or complex features.
 
 ### Change Log
 
 | Date | Version | Description | Author |
 |------|---------|-------------|--------|
-| 2025-09-08 | 1.0 | Initial PRD creation focusing on auth and TacticalMap phase | John (PM Agent) |
+| 2025-09-10 | v1.0 | Simplified PRD for Phase 1 - auth + empty pages only | John (PM) |
 
 ## Requirements
 
-### Functional
+### Functional Requirements
 
-1. **FR1**: The application provides email/password authentication using Supabase Auth with combined landing/login page
-2. **FR2**: Users can create projects with required fields: name, cost (1-10), benefit (1-10), category, priority, and confidence level
-3. **FR3**: The TacticalMap displays projects as visual elements positioned on a 10x10 cost/benefit matrix grid
-4. **FR4**: Users can mark projects as "Boss Battle" with visual star icon (simplified logic for this phase, no double XP triggering yet)
-5. **FR5**: Users can edit existing projects and update their position on the cost/benefit matrix
-6. **FR6**: Users can mark projects as completed, triggering XP calculation and accuracy assessment dialog (project is removed from the matrix and updated in the database as completed. (liberate coordinate for new projects))
-7. **FR7**: The XP system displays current weekly points with ⚡ icon in top-right header position
-8. **FR8**: Universal navigation grid (2x2 quadrant) in bottom-right provides access to all four pages (for future page development readiness)
-9. **FR9**: Project creation validates coordinate uniqueness and displays error message if position is occupied, requiring user to select different coordinates
-10. **FR10**: Projects approaching deadlines (≤3 days) display gentle pulse animation for visual attention
+**FR1:** Combined landing/authentication page with Supabase email/password signup/login  
+**FR2:** Four empty authenticated pages: /tactical-map, /deep-focus, /analytics, /prime  
+**FR3:** Universal header on all pages with static logo text and placeholder elements  
+**FR4:** Functional 2×2 navigation grid enabling page switching  
+**FR5:** Page-specific header colors (TacticalMap: #FDE047, DeepFocus: #CFE820, Analytics: #E5B6E5, Prime: #2563EB)  
+**FR6:** Protected routing preventing unauthenticated access to app pages  
 
-### Non Functional
+### Non-Functional Requirements  
 
-1. **NFR1**: All database operations use Supabase with Row Level Security policies ensuring user data isolation
-2. **NFR2**: The application is optimized for desktop browsers (Chrome, Firefox, Safari) with modern web standards
-3. **NFR3**: Page load times must not exceed 3 seconds on standard broadband connections  
-4. **NFR4**: Visual design adheres to neo-brutalist principles (/docs/front-end-specs.md)
-5. **NFR5**: Data persistence uses standard HTTP requests with optimistic UI updates for immediate feedback
-6. **NFR6**: All user interactions provide visual feedback within 200ms response time
-
+**NFR1:** Next.js 15 App Router with basic TypeScript setup  
+**NFR2:** Supabase authentication within free tier limits  
+**NFR3:** Desktop-only design with 1024px minimum width  
+**NFR4:** Basic styling without complex design system  
+**NFR5:** Manual testing only (no automated testing infrastructure)  
 
 ## User Interface Design Goals
 
 ### Overall UX Vision
-
-Strategic thinking enabled through visual clarity and immediate comprehension. The interface eliminates cognitive friction by presenting information with surgical precision - no progressive disclosure, no hidden complexity. Users gain helicopter view of their strategic landscape through data-focused presentation that prioritizes decision-making over decoration.
-
-### Key Interaction Paradigms
-
-- **Direct Manipulation**: Projects positioned through creation modal and edited via right-click context menu
-- **Visual-First Strategy**: Understanding emerges through spatial relationships and visual hierarchy
-- **Respecting User Intelligence**: No cheesy motivational language or unnecessary explanations - users discover functionality through intuitive interaction
-- **Meaningful Animation**: Thoughtful animations enhance visual clarity by communicating state changes and relationships rather than jarring transitions
+Minimal interface establishing foundation structure. Basic styling with page-specific header colors providing visual orientation between pages.
 
 ### Core Screens and Views
+**Landing/Authentication Screen**: Combined auth with neutral styling  
+**TacticalMap Page**: Yellow header (#FDE047), empty page content  
+**DeepFocus Page**: Yellow-green header (#CFE820), empty page content  
+**Analytics Page**: Pink header (#E5B6E5), empty page content  
+**Prime Page**: Blue header (#2563EB), empty page content  
 
-- **Landing/Authentication Screen**: Combined value proposition and login with clear benefit communication
-- **TacticalMap**: Primary strategic visualization with cost/benefit matrix and project positioning controls  
-- **Navigation Shell**: Persistent header with branding and 2x2 quadrant navigation grid
-- **Empty Page Shells**: Minimal scaffolding for DeepFocus, Analytics, and Prime pages with "Coming Soon" messaging
+### Target Device and Platforms: Desktop Only  
+Desktop-exclusive with 1024px minimum width. No mobile responsiveness.
 
+## Technical Assumptions
+
+### Repository Structure: Monorepo
+Single Next.js repository
+
+### Service Architecture
+Next.js 15 App Router with Supabase backend for authentication only
+
+### Testing Requirements
+- TypeScript type checking
+- ESLint code quality  
+- Manual authentication testing
+
+### Additional Technical Assumptions
+- **@supabase/supabase-js v2** for authentication
+- **Basic Tailwind CSS** for minimal styling
+- **No complex dependencies** (no Framer Motion, shadcn/ui, etc.)
+- **Supabase RPC** only if needed for auth complexity
+
+## Epic List
+
+### Epic 1: Minimal Authentication & Empty Pages
+Complete foundational setup with Supabase auth and four empty pages with basic navigation.
+
+## Epic 1: Minimal Authentication & Empty Pages
+
+**Epic Goal:** Deliver complete Phase 1 foundation: Supabase authentication, four empty pages with colored headers, and functional navigation grid.
+
+### Story 1.1: Complete Phase 1 Foundation
+As a user,  
+I want to authenticate and navigate between empty application pages,  
+so that I have the basic structure to build upon.
+
+**Acceptance Criteria:**
+1. **Supabase Setup**: Project created, @supabase/supabase-js v2 installed, environment variables configured
+2. **Landing/Auth Page**: Combined signup/login page at / route with basic forms and validation
+3. **Four Empty Pages**: Routes for /tactical-map, /deep-focus, /analytics, /prime with "Page under construction" content
+4. **Protected Routing**: Authentication required for app pages, redirects work correctly
+5. **Universal Header**: Logo on left, logout on right, page-specific colors (Map=#FDE047, Focus=#CFE820, Data=#E5B6E5, Prime=#2563EB)
+6. **2×2 Navigation Grid**: Fixed bottom-right, functional page switching with active state highlighting
+7. **Basic Styling**: Minimal CSS for desktop-only layout (1024px min-width)

@@ -4,13 +4,13 @@ A professional strategic visual planning tool with integrated deep work sessions
 
 ## Core Objective
 
-Eugene Strat creates a **strategic meta-layer** above traditional task and project management tools, focusing on the bigger picture and focus patterns rather than managing details.
+Eugene Strat aims to create a **strategic meta-layer** above traditional task and project management tools, focusing on the bigger picture and focus patterns rather than managing details.
 
 **Two Core Functions:**
 - **STRATEGIC MAP**: Visual project overview using cost/benefit positioning matrix for strategic decision-making
 - **DEEP WORK**: Focused work sessions with post-session analysis to understand patterns and improve practice
 
-The tool enables the **strategic pause** before execution—deliberately assessing cost/benefit/priority before committing to track projects, creating visual clarity for better decision-making.
+The tool is designed to enable the **strategic pause** before execution—deliberately assessing cost/benefit/priority before committing to track projects, creating visual clarity for better decision-making.
 
 ## Key Features
 
