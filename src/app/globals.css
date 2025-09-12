@@ -522,6 +522,204 @@ body {
   font-family: var(--font-family-mono);
 }
 
+/* TacticalMap Matrix Styles */
+.tactical-map-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - var(--header-height) - 64px);
+  padding: var(--spacing-lg);
+}
+
+.matrix-container {
+  width: min(800px, calc(100vw - 64px));
+  height: min(800px, calc(100vw - 64px));
+  aspect-ratio: 1;
+  background: var(--color-grey-crayon);
+  border: var(--border-standard);
+  box-shadow: var(--shadow-base);
+  position: relative;
+  filter: url(#paper-texture);
+  overflow: visible;
+}
+
+/* Grid System */
+.matrix-grid {
+  position: absolute;
+  inset: 0;
+}
+
+.grid-line {
+  stroke: var(--color-grey-grid);
+  stroke-width: 1px;
+  filter: url(#grid-variation);
+  opacity: 0.3;
+}
+
+.grid-line-major {
+  stroke: var(--color-black);
+  stroke-width: 4px;
+  filter: url(#hand-drawn-border);
+  opacity: 1;
+}
+
+/* Quadrant Labels */
+.quadrant-label {
+  position: absolute;
+  font-weight: var(--font-weight-black);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wider);
+  color: var(--color-black);
+}
+
+.quadrant-title {
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.quadrant-subtitle {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  color: rgba(0, 0, 0, 0.6);
+  font-family: var(--font-family-mono);
+}
+
+.quadrant-top-left {
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+}
+
+.quadrant-top-right {
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  text-align: right;
+}
+
+.quadrant-bottom-left {
+  bottom: var(--spacing-md);
+  left: var(--spacing-md);
+}
+
+.quadrant-bottom-right {
+  bottom: var(--spacing-md);
+  right: var(--spacing-md);
+  text-align: right;
+}
+
+/* Axis Labels */
+.axis-label {
+  position: absolute;
+  font-weight: var(--font-weight-black);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: rgba(0, 0, 0, 0.8);
+  font-family: var(--font-family-mono);
+  font-size: 1.125rem;
+}
+
+.axis-benefit {
+  top: 50%;
+  left: -60px;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center;
+}
+
+.axis-cost {
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Project Nodes */
+.project-node {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: all 100ms;
+}
+
+.project-rectangle {
+  width: 100%;
+  height: 100%;
+  border: var(--border-standard);
+  background: #f7f7f5;
+  box-shadow: var(--shadow-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-rectangle:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.project-rectangle.high-priority {
+  box-shadow: 4px 4px 0px #FFD700;
+}
+
+.project-rectangle.high-priority:hover {
+  box-shadow: 6px 6px 0px #FFD700;
+}
+
+/* Pattern Implementations */
+.pattern-work {
+  background: #f7f7f5;
+  background-image: 
+    radial-gradient(circle at 2px 2px, #9ca3af 1px, transparent 1px),
+    radial-gradient(circle at 6px 6px, #9ca3af 1px, transparent 1px),
+    radial-gradient(circle at 10px 10px, #9ca3af 1px, transparent 1px);
+  background-size: 8px 8px, 8px 8px, 8px 8px;
+  background-position: 0 0, 4px 4px, 8px 8px;
+}
+
+.pattern-learn {
+  background: #f7f7f5;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #9ca3af,
+    #9ca3af 1.5px,
+    transparent 1.5px,
+    transparent 8px
+  );
+}
+
+.pattern-build {
+  background: #f7f7f5;
+  background-image: 
+    linear-gradient(#9ca3af 1px, transparent 1px),
+    linear-gradient(90deg, #9ca3af 1px, transparent 1px);
+  background-size: 6px 6px;
+}
+
+.pattern-manage {
+  background: #f7f7f5;
+  background-image: repeating-linear-gradient(
+    0deg,
+    #9ca3af,
+    #9ca3af 1.5px,
+    transparent 1.5px,
+    transparent 6px
+  );
+}
+
+/* Boss Battle Overlay */
+.boss-battle-star {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  color: var(--color-yellow-primary);
+  font-size: 14px;
+  font-weight: var(--font-weight-black);
+  text-shadow: 
+    1px 1px 0px var(--color-black),
+    -1px -1px 0px var(--color-black),
+    1px -1px 0px var(--color-black),
+    -1px 1px 0px var(--color-black);
+  z-index: 10;
+}
+
 /* Responsive Design */
 @media (max-width: 1280px) {
   .page-content {
