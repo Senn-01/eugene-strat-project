@@ -1,4 +1,4 @@
-/* Page-Specific Theme System */
+/* Page-Specific Theme System with Creative Color Mixing */
 
 /* Dynamic theme variables based on data attribute */
 [data-page-theme="tactical-map"] {
@@ -7,22 +7,48 @@
   --button-primary: var(--color-tactical);
   --accent-shadow: oklch(88% 0.2 90); /* Gold shadow for high priority */
   --xp-background: var(--color-tactical);
+
+  /* Header Element Colors */
+  --logo-color: var(--color-black);
+  --brain-dump-bg: var(--color-black);
+  --brain-dump-text: var(--color-white);
+  --hamburger-bg: #f7f7f5;
+  --hamburger-text: var(--color-black);
+  --hamburger-dropdown-bg: var(--color-tactical);
 }
 
 [data-page-theme="deep-focus"] {
   --page-color: var(--color-focus);
-  --header-bg: var(--color-focus);
+  --header-bg: #224718; /* Dark green primary */
   --button-primary: var(--color-focus);
   --accent-shadow: oklch(82% 0.18 115); /* Green accent */
   --xp-background: var(--color-focus);
+
+  /* Header Element Colors - Nature/Focus Theme */
+  --logo-color: #CFE820; /* Lime for vibrancy */
+  --brain-dump-bg: #CFE820; /* Lime background */
+  --brain-dump-text: #224718; /* Dark green text */
+  --hamburger-bg: #E5EED0; /* Cream background */
+  --hamburger-text: #224718; /* Dark green text */
+  --hamburger-dropdown-bg: #224718; /* Dark green */
+  --hamburger-dropdown-accent: #CFE820; /* Lime accents */
 }
 
 [data-page-theme="analytics"] {
   --page-color: var(--color-data);
-  --header-bg: var(--color-data);
+  --header-bg: #451969; /* Deep purple primary */
   --button-primary: var(--color-data);
   --accent-shadow: oklch(77% 0.12 325); /* Pink accent */
   --xp-background: var(--color-data);
+
+  /* Header Element Colors - Data/Insights Theme */
+  --logo-color: #E5B6E5; /* Lavender for contrast */
+  --brain-dump-bg: #E5B6E5; /* Lavender background */
+  --brain-dump-text: #451969; /* Deep purple text */
+  --hamburger-bg: #E5B6E5; /* Lavender background */
+  --hamburger-text: #451969; /* Deep purple text */
+  --hamburger-dropdown-bg: #451969; /* Deep purple */
+  --hamburger-dropdown-accent: #E5B6E5; /* Lavender highlights */
 }
 
 [data-page-theme="prime"] {
@@ -31,6 +57,15 @@
   --button-primary: var(--color-prime);
   --accent-shadow: oklch(52% 0.22 245); /* Blue accent */
   --xp-background: var(--color-prime);
+
+  /* Header Element Colors - Professional/Clean Theme */
+  --logo-color: var(--color-white);
+  --brain-dump-bg: var(--color-white);
+  --brain-dump-text: var(--color-prime); /* Blue text */
+  --hamburger-bg: #DBEAFE; /* Light blue tint */
+  --hamburger-text: var(--color-prime);
+  --hamburger-dropdown-bg: var(--color-prime);
+  --hamburger-dropdown-accent: var(--color-white);
 }
 
 /* Default theme fallback */

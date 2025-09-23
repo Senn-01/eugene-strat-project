@@ -1,7 +1,8 @@
 ---
 rationale: Simplified architecture documentation focused on current codebase structure and patterns for developer onboarding
-version: 4.0.0
+version: 4.1.0
 changelog:
+  - 4.1.0: Updated with Phase 4 progress - Enhanced Header Component with ThemeDetector pattern, complete page-specific theming working across all pages
   - 4.0.0: MAJOR UPDATE - CSS Architecture Refactoring complete, Tailwind v4 modular system implemented with 85% reduction in globals.css size, dynamic page theming system
   - 3.0.0: MAJOR UPDATE - TacticalMap feature complete, moved from "Partially Complete" to "Complete" status, Story 1.4 fully implemented with all UI polish and testing requirements met
   - 2.2.0: Updated TacticalMap implementation status following Story 1.4 UI polish progress - core fixes completed but design issues remain
@@ -10,6 +11,7 @@ changelog:
   - 1.0.0: Initial comprehensive architecture documentation with 7 ADRs and Phase 2 guidelines
 links:
   - docs/brief.md: Product vision and strategic context - "The Strava of Project Management"
+  - docs/stories/1.5.universal-components-theming.md: Current Story 1.5 with Enhanced Header Component implementation details
   - docs/stories/1.4.ui-polish-frontend-testing.md: Completed Story 1.4 with full implementation details
   - docs/front-end-specs/6-testing-strategy-validation-phase.md: Validation phase testing approach
 ---
@@ -48,7 +50,7 @@ Eugene Strat is **"The Strava of Project Management"** - a strategic project vis
 │   └── page.tsx                     # Landing/login page
 ├── components/                       # Reusable UI components
 │   ├── auth/                        # Authentication components
-│   ├── layout/                      # Layout components (header, nav, XP gauge)
+│   ├── layout/                      # Layout components (enhanced header with theming, nav, XP gauge)
 │   ├── tactical-map/                # Complete TacticalMap feature components
 │   └── ui/                          # Generic UI primitives
 ├── styles/                          # Modular CSS Architecture (Tailwind v4)
@@ -64,11 +66,12 @@ Eugene Strat is **"The Strava of Project Management"** - a strategic project vis
 
 ## Core Architecture Patterns
 
-### Authentication Flow
+### Authentication & Theming Flow
 ```
-Browser Request → Middleware Auth Check → Protected Layout → Server User Fetch → Page Render
-                       ↓
-                 Redirect to Auth (if unauthenticated)
+Browser Request → Middleware Auth Check → Protected Layout → Server User Fetch → ThemeDetector → Page Render
+                       ↓                                          ↓
+                 Redirect to Auth                        Client-side theme detection
+                 (if unauthenticated)                   & dynamic page theming
 ```
 
 ### Component Organization

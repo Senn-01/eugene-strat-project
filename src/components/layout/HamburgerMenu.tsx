@@ -1,15 +1,23 @@
 'use client'
 
 import { useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
+import { LogOut, Trash2, User } from 'lucide-react'
 
 interface HamburgerMenuProps {
   onResetData: () => Promise<boolean>
+  user: {
+    id: string
+    email?: string
+  } | null
 }
 
-export function HamburgerMenu({ onResetData }: HamburgerMenuProps) {
+export function HamburgerMenu({ onResetData, user }: HamburgerMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
   const [isResetting, setIsResetting] = useState(false)
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const supabase = createClient()
 
   const handleMenuToggle = () => {
     setIsOpen(!isOpen)
@@ -36,6 +44,20 @@ export function HamburgerMenu({ onResetData }: HamburgerMenuProps) {
     setShowConfirmDialog(false)
   }
 
+  const handleLogout = async () => {
+    setIsLoggingOut(true)
+    setIsOpen(false)
+
+    try {
+      await supabase.auth.signOut()
+      // Redirect to auth page
+      window.location.href = '/'
+    } catch (error) {
+      console.error('Error signing out:', error)
+      setIsLoggingOut(false)
+    }
+  }
+
   return (
     <>
       <div className="hamburger-menu-container">
@@ -54,11 +76,34 @@ export function HamburgerMenu({ onResetData }: HamburgerMenuProps) {
               onClick={() => setIsOpen(false)}
             />
             <div className="hamburger-menu-dropdown">
+              {/* User Info Section */}
+              {user && (
+                <div className="hamburger-menu-user-section">
+                  <div className="user-info">
+                    <User size={16} className="user-icon" />
+                    <div className="user-details">
+                      <div className="user-email">{user.email || 'User'}</div>
+                      <div className="user-meta">Account Active</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Menu Actions */}
+              <button
+                className="hamburger-menu-item logout-item"
+                onClick={handleLogout}
+                disabled={isLoggingOut}
+              >
+                <LogOut size={16} className="menu-item-icon" />
+                {isLoggingOut ? 'Logging out...' : 'Logout'}
+              </button>
+
               <button
                 className="hamburger-menu-item reset-data-item"
                 onClick={handleResetClick}
               >
-                <span className="menu-item-icon">🗑️</span>
+                <Trash2 size={16} className="menu-item-icon" />
                 Reset All Data
               </button>
             </div>
@@ -104,178 +149,6 @@ export function HamburgerMenu({ onResetData }: HamburgerMenuProps) {
         </div>
       )}
 
-      <style jsx>{`
-        .hamburger-menu-container {
-          position: relative;
-        }
-
-        .header-menu-button {
-          background: none;
-          border: none;
-          font-size: 1.5rem;
-          font-weight: bold;
-          cursor: pointer;
-          padding: 0.5rem;
-          border-radius: 4px;
-          transition: background-color 0.2s;
-        }
-
-        .header-menu-button:hover {
-          background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        .hamburger-menu-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          z-index: 999;
-        }
-
-        .hamburger-menu-dropdown {
-          position: absolute;
-          top: 100%;
-          right: 0;
-          background: #FDE047;
-          border: 3px solid #000;
-          border-radius: 0;
-          min-width: 200px;
-          z-index: 1000;
-          box-shadow: 4px 4px 0px #000;
-        }
-
-        .hamburger-menu-item {
-          width: 100%;
-          padding: 1rem;
-          background: none;
-          border: none;
-          border-bottom: 2px solid #000;
-          text-align: left;
-          cursor: pointer;
-          font-family: 'SF Mono', 'Monaco', monospace;
-          font-weight: 600;
-          transition: background-color 0.2s;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-
-        .hamburger-menu-item:last-child {
-          border-bottom: none;
-        }
-
-        .hamburger-menu-item:hover {
-          background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        .reset-data-item {
-          color: #dc2626;
-        }
-
-        .reset-data-item:hover {
-          background-color: rgba(220, 38, 38, 0.1);
-        }
-
-        .menu-item-icon {
-          font-size: 1rem;
-        }
-
-        .reset-confirmation-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.8);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 10000;
-        }
-
-        .reset-confirmation-dialog {
-          background: #FDE047;
-          border: 4px solid #000;
-          border-radius: 0;
-          max-width: 400px;
-          width: 90%;
-          box-shadow: 8px 8px 0px #000;
-        }
-
-        .confirmation-header {
-          padding: 1.5rem 1.5rem 0;
-          border-bottom: 3px solid #000;
-          margin-bottom: 1.5rem;
-        }
-
-        .confirmation-header h3 {
-          margin: 0;
-          font-family: 'SF Mono', 'Monaco', monospace;
-          font-weight: 800;
-          font-size: 1.25rem;
-          color: #dc2626;
-        }
-
-        .confirmation-content {
-          padding: 0 1.5rem;
-          font-family: 'SF Mono', 'Monaco', monospace;
-          line-height: 1.6;
-        }
-
-        .confirmation-content ul {
-          margin: 1rem 0;
-          padding-left: 1.5rem;
-        }
-
-        .confirmation-content li {
-          margin: 0.5rem 0;
-        }
-
-        .confirmation-actions {
-          padding: 1.5rem;
-          display: flex;
-          gap: 1rem;
-          justify-content: flex-end;
-        }
-
-        .confirmation-button {
-          padding: 0.75rem 1.5rem;
-          border: 3px solid #000;
-          font-family: 'SF Mono', 'Monaco', monospace;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.2s;
-          border-radius: 0;
-        }
-
-        .confirmation-button:disabled {
-          opacity: 0.6;
-          cursor: not-allowed;
-        }
-
-        .cancel-button {
-          background: #fff;
-          color: #000;
-        }
-
-        .cancel-button:hover:not(:disabled) {
-          background: #f3f4f6;
-          transform: translate(-2px, -2px);
-          box-shadow: 4px 4px 0px #000;
-        }
-
-        .confirm-button {
-          background: #dc2626;
-          color: #fff;
-        }
-
-        .confirm-button:hover:not(:disabled) {
-          background: #b91c1c;
-          transform: translate(-2px, -2px);
-          box-shadow: 4px 4px 0px #000;
-        }
-      `}</style>
     </>
   )
 }
