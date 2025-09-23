@@ -1,0 +1,43 @@
+/* Page-Specific Theme System */
+
+/* Dynamic theme variables based on data attribute */
+[data-page-theme="tactical-map"] {
+  --page-color: var(--color-tactical);
+  --header-bg: var(--color-tactical);
+  --button-primary: var(--color-tactical);
+  --accent-shadow: oklch(88% 0.2 90); /* Gold shadow for high priority */
+  --xp-background: var(--color-tactical);
+}
+
+[data-page-theme="deep-focus"] {
+  --page-color: var(--color-focus);
+  --header-bg: var(--color-focus);
+  --button-primary: var(--color-focus);
+  --accent-shadow: oklch(82% 0.18 115); /* Green accent */
+  --xp-background: var(--color-focus);
+}
+
+[data-page-theme="analytics"] {
+  --page-color: var(--color-data);
+  --header-bg: var(--color-data);
+  --button-primary: var(--color-data);
+  --accent-shadow: oklch(77% 0.12 325); /* Pink accent */
+  --xp-background: var(--color-data);
+}
+
+[data-page-theme="prime"] {
+  --page-color: var(--color-prime);
+  --header-bg: var(--color-prime);
+  --button-primary: var(--color-prime);
+  --accent-shadow: oklch(52% 0.22 245); /* Blue accent */
+  --xp-background: var(--color-prime);
+}
+
+/* Default theme fallback */
+:root {
+  --page-color: var(--color-tactical);
+  --header-bg: var(--color-tactical);
+  --button-primary: var(--color-tactical);
+  --accent-shadow: oklch(88% 0.2 90);
+  --xp-background: var(--color-tactical);
+}

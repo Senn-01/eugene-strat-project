@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+/* Tailwind v4 CSS-First Design System */
+@theme {
+  /* Font System */
+  --font-family-primary: system-ui, -apple-system, sans-serif;
+  --font-family-mono: Monaco, 'Cascadia Code', 'Fira Code', monospace;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* Core Color System - Enhanced with P3 Gamut Support */
+  --color-yellow-primary: oklch(91.5% 0.258 102);
+  --color-grey-crayon: #e8e8e6;
+  --color-grey-grid: #d4d4d2;
+  --color-grey-unselected: #9ca3af;
+  --color-black: #000000;
+  --color-white: #ffffff;
+
+  /* Page-Specific Colors */
+  --color-tactical: oklch(91.5% 0.258 102);  /* Yellow */
+  --color-focus: oklch(85% 0.2 120);         /* Yellow-Green */
+  --color-data: oklch(80% 0.15 330);         /* Pink */
+  --color-prime: oklch(55% 0.25 250);        /* Blue */
+
+  /* Typography Scale */
+  --font-size-display: 3rem;
+  --font-size-heading: 2rem;
+  --font-size-subheading: 1.25rem;
+  --font-size-body: 1rem;
+  --font-size-caption: 0.875rem;
+
+  /* Typography Weights */
+  --font-weight-black: 900;
+  --font-weight-bold: 700;
+  --font-weight-normal: 500;
+
+  /* Letter Spacing */
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-wide: 0.04em;
+  --letter-spacing-normal: 0.02em;
+
+  /* Spacing System */
+  --spacing-xs: 0.5rem;   /* 8px */
+  --spacing-sm: 1rem;     /* 16px */
+  --spacing-md: 1.5rem;   /* 24px */
+  --spacing-lg: 2rem;     /* 32px */
+  --spacing-xl: 3rem;     /* 48px */
+  --spacing-2xl: 4rem;    /* 64px */
+
+  /* Design System Tokens */
+  --border-width-standard: 4px;
+  --border-width-emphasis: 6px;
+  --border-width-subtle: 2px;
+
+  --shadow-base: 4px 4px 0px var(--color-black);
+  --shadow-hover: 6px 6px 0px var(--color-black);
+  --shadow-active: 2px 2px 0px var(--color-black);
+  --shadow-large: 8px 8px 0px var(--color-black);
+
+  /* Layout Constants */
+  --header-height: 60px;
+  --matrix-size: 800px;
+  --modal-width: 950px;
+  --modal-height: 550px;
+  --nav-size: 48px;
+}
+
+/* Base Styles */
+@import "./base/typography.css" layer(base);
+@import "./base/utilities.css" layer(utilities);
+
+/* Component Styles */
+@import "./components/index.css" layer(components);
+
+/* Feature Styles */
+@import "./features/tactical-map/index.css" layer(components);
+
+/* Theme System */
+@import "./themes/page-themes.css";

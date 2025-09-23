@@ -1,0 +1,104 @@
+/* Project Node Styles */
+@layer components {
+  .project-node {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: all 100ms;
+  }
+
+  .project-rectangle {
+    width: 100%;
+    height: 100%;
+    border: var(--border-width-standard) solid var(--color-black);
+    background: #f7f7f5;
+    box-shadow: var(--shadow-base);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-rectangle:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .project-rectangle.high-priority {
+    box-shadow: 4px 4px 0px #FFD700;
+  }
+
+  .project-rectangle.high-priority:hover {
+    box-shadow: 6px 6px 0px #FFD700;
+  }
+
+  /* Pattern Implementations */
+  .pattern-work {
+    background: #f7f7f5;
+    background-image:
+      radial-gradient(circle at 2px 2px, var(--color-grey-unselected) 1px, transparent 1px),
+      radial-gradient(circle at 6px 6px, var(--color-grey-unselected) 1px, transparent 1px),
+      radial-gradient(circle at 10px 10px, var(--color-grey-unselected) 1px, transparent 1px);
+    background-size: 8px 8px, 8px 8px, 8px 8px;
+    background-position: 0 0, 4px 4px, 8px 8px;
+  }
+
+  .pattern-learn {
+    background: #f7f7f5;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--color-grey-unselected),
+      var(--color-grey-unselected) 1.5px,
+      transparent 1.5px,
+      transparent 8px
+    );
+  }
+
+  .pattern-build {
+    background: #f7f7f5;
+    background-image:
+      linear-gradient(var(--color-grey-unselected) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grey-unselected) 1px, transparent 1px);
+    background-size: 6px 6px;
+  }
+
+  .pattern-manage {
+    background: #f7f7f5;
+    background-image: repeating-linear-gradient(
+      0deg,
+      var(--color-grey-unselected),
+      var(--color-grey-unselected) 1.5px,
+      transparent 1.5px,
+      transparent 6px
+    );
+  }
+
+  /* Boss Battle Overlay */
+  .boss-battle-star {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    color: var(--color-yellow-primary);
+    font-size: 14px;
+    font-weight: var(--font-weight-black);
+    text-shadow:
+      1px 1px 0px var(--color-black),
+      -1px -1px 0px var(--color-black),
+      1px -1px 0px var(--color-black),
+      -1px 1px 0px var(--color-black);
+    z-index: 10;
+  }
+
+  /* Project Node Interactive States */
+  .project-node:hover .project-rectangle {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .project-node.menu-active .project-rectangle {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+    border-color: var(--color-yellow-primary);
+    border-width: 3px;
+  }
+}

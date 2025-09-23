@@ -1,7 +1,8 @@
 ---
 rationale: Simplified architecture documentation focused on current codebase structure and patterns for developer onboarding
-version: 3.0.0
+version: 4.0.0
 changelog:
+  - 4.0.0: MAJOR UPDATE - CSS Architecture Refactoring complete, Tailwind v4 modular system implemented with 85% reduction in globals.css size, dynamic page theming system
   - 3.0.0: MAJOR UPDATE - TacticalMap feature complete, moved from "Partially Complete" to "Complete" status, Story 1.4 fully implemented with all UI polish and testing requirements met
   - 2.2.0: Updated TacticalMap implementation status following Story 1.4 UI polish progress - core fixes completed but design issues remain
   - 2.1.0: Added page-specific neo-brutalist color system, Lucide icon standards, and validation-phase testing approach
@@ -38,7 +39,7 @@ Eugene Strat is **"The Strava of Project Management"** - a strategic project vis
 ├── app/                              # Next.js App Router
 │   ├── (protected)/                 # Route group for authenticated pages
 │   │   ├── layout.tsx               # Protected layout with auth validation
-│   │   ├── tactical-map/            # Strategic project matrix (placeholder)
+│   │   ├── tactical-map/            # Strategic project matrix (complete)
 │   │   ├── deep-focus/              # Deep work sessions (placeholder)
 │   │   ├── analytics/               # Performance dashboard (placeholder)
 │   │   └── prime/                   # Personal OS (placeholder)
@@ -47,19 +48,18 @@ Eugene Strat is **"The Strava of Project Management"** - a strategic project vis
 │   └── page.tsx                     # Landing/login page
 ├── components/                       # Reusable UI components
 │   ├── auth/                        # Authentication components
-│   │   ├── AuthForm.tsx             # Login/signup form
-│   │   └── LogoutButton.tsx         # Logout functionality
-│   ├── layout/                      # Layout components
-│   │   ├── AppHeader.tsx            # Universal header with page colors
-│   │   └── Navigation.tsx           # Fixed 2×2 navigation grid
+│   ├── layout/                      # Layout components (header, nav, XP gauge)
+│   ├── tactical-map/                # Complete TacticalMap feature components
 │   └── ui/                          # Generic UI primitives
+├── styles/                          # Modular CSS Architecture (Tailwind v4)
+│   ├── globals.css                  # Core @theme definitions & imports (80 lines)
+│   ├── base/                        # Typography & utility classes
+│   ├── components/                  # Universal component styles
+│   ├── features/tactical-map/       # Feature-specific styles
+│   └── themes/                      # Page-specific theming system
 └── lib/                             # Business logic & utilities
     ├── supabase/                    # Database client configurations
-    │   ├── client.ts                # Client-side instance
-    │   ├── server.ts                # Server-side instance
-    │   └── middleware.ts            # Request-level auth
     └── types/                       # TypeScript definitions
-        └── auth.types.ts            # Authentication types
 ```
 
 ## Core Architecture Patterns
@@ -87,7 +87,7 @@ Browser Request → Middleware Auth Check → Protected Layout → Server User F
 
 **Supabase BaaS**: PostgreSQL with built-in auth, RLS for data isolation, and real-time capabilities
 
-**Tailwind CSS v4**: Utility-first styling with custom design tokens for Neo-Brutalist design system
+**Tailwind CSS v4**: CSS-first configuration with @theme directive, modular architecture, and page-specific theming system
 
 **Page-Specific Neo-Brutalism**: Each page maintains neo-brutalist design with unique dominant color:
 - TacticalMap: Yellow (#FDE047) dominance
@@ -137,10 +137,17 @@ Browser Request → Middleware Auth Check → Protected Layout → Server User F
 - **Analytics Page**: Strava-inspired performance insights with heatmaps, treemaps, and achievements
 - **Prime Page**: Personal operating system with values definition and daily reflection
 
+✅ **Phase 3 Complete** - Modular CSS Architecture & Dynamic Theming:
+- **CSS Refactoring**: Transformed 2,068-line globals.css into Tailwind v4 modular architecture (85% reduction)
+- **Component-Based Styles**: Organized CSS into focused modules (base/, components/, features/, themes/)
+- **Dynamic Theming**: Implemented page-specific theming system using CSS custom properties and data attributes
+- **Tailwind v4 Architecture**: CSS-first configuration with @theme directive and @layer organization
+- **Performance**: Maintained tree-shaking and build optimization with modular structure
+
 **🚀 Technical Improvements (Next Priority):**
-- **Universal Components**: Extend page-specific neo-brutalist colors to remaining pages (DeepFocus: yellow-green, Analytics: pink, Prime: blue)
-- **CSS Architecture**: Refactor 1800+ line globals.css into modular, maintainable stylesheets
-- **Future Features**: Triage/Parking Lot workflow implementation when Universal Capture is developed
+- **Universal Components**: Complete remaining page implementations (DeepFocus, Analytics, Prime)
+- **Feature Expansion**: Implement Universal Capture (GTD brain dump) with CMD+K activation
+- **Advanced Theming**: Extend theme system for light/dark mode support
 - **Testing Evolution**: Transition from validation-phase (30%) to production-ready testing coverage
 
 **🏆 Validation Ready:**

@@ -70,10 +70,7 @@ export function AppHeader({ pageId, user }: AppHeaderProps) {
   }
 
   return (
-    <header
-      className="app-header"
-      style={{ backgroundColor: pageConfig.headerColor }}
-    >
+    <header className="app-header">
       <div className="header-left">
         <div className="header-logo">
           Eugene Strat

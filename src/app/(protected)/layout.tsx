@@ -33,7 +33,7 @@ export default async function ProtectedLayout({
   const currentPageId = getCurrentPageId()
 
   return (
-    <div className="page-layout">
+    <div className="page-layout" data-page-theme={currentPageId}>
       <AppHeader pageId={currentPageId} user={user} />
       <XpGauge className="xp-gauge-layout" />
       <main className="page-content">

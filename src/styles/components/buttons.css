@@ -1,0 +1,151 @@
+/* Neo-Brutalist Button System */
+@layer components {
+  .btn-brutal {
+    border: var(--border-width-standard) solid var(--color-black);
+    box-shadow: var(--shadow-base);
+    font-weight: var(--font-weight-black);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wider);
+    transition: all 100ms;
+    cursor: pointer;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-body);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-brutal:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .btn-brutal:active {
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-active);
+  }
+
+  .btn-primary {
+    background: var(--button-primary);
+    color: var(--color-black);
+  }
+
+  .btn-secondary {
+    background: var(--color-grey-unselected);
+    color: var(--color-white);
+  }
+
+  .btn-danger {
+    background: #dc2626;
+    color: var(--color-white);
+  }
+
+  /* Chart specific buttons */
+  .chart-button {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: var(--border-width-standard) solid var(--color-black);
+    box-shadow: var(--shadow-base);
+    font-weight: var(--font-weight-black);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wider);
+    transition: all 100ms;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .chart-button:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .chart-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-active);
+  }
+
+  .chart-button.button-primary {
+    background: var(--button-primary);
+    color: var(--color-black);
+  }
+
+  .chart-button.button-secondary {
+    background: var(--color-white);
+    color: var(--color-black);
+  }
+
+  /* Compact chart buttons */
+  .chart-button-compact {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: var(--border-width-standard) solid var(--color-black);
+    background: var(--color-white);
+    color: var(--color-black);
+    font-weight: var(--font-weight-black);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 100ms;
+    position: relative;
+    line-height: 1;
+    box-shadow: var(--shadow-base);
+  }
+
+  .chart-button-compact:hover {
+    background: var(--button-primary);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .chart-button-compact:active {
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-active);
+  }
+
+  .chart-button-compact.active {
+    background: var(--button-primary);
+    box-shadow: var(--shadow-hover);
+  }
+
+  /* Modal action buttons */
+  .button-cancel, .button-create, .button-complete {
+    border: var(--border-width-standard) solid var(--color-black);
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-weight: var(--font-weight-black);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wider);
+    transition: all 100ms;
+    cursor: pointer;
+    box-shadow: var(--shadow-base);
+  }
+
+  .button-cancel {
+    background: var(--color-grey-unselected);
+    color: var(--color-white);
+  }
+
+  .button-create {
+    background: var(--button-primary);
+    color: var(--color-black);
+  }
+
+  .button-complete {
+    background: var(--color-data);
+    color: var(--color-black);
+  }
+
+  .button-cancel:hover, .button-create:hover, .button-complete:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .button-cancel:active, .button-create:active, .button-complete:active {
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-active);
+  }
+}

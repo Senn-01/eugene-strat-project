@@ -1,0 +1,120 @@
+/* TacticalMap Matrix Styles */
+@layer components {
+  .tactical-map-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - var(--header-height) - 64px);
+    padding: 0 var(--spacing-lg) var(--spacing-lg);
+  }
+
+  .matrix-container {
+    width: min(800px, calc(100vw - 64px));
+    height: min(800px, calc(100vw - 64px));
+    aspect-ratio: 1;
+    background: var(--color-grey-crayon);
+    border: var(--border-width-standard) solid var(--color-black);
+    box-shadow: var(--shadow-base);
+    position: relative;
+    filter: url(#paper-texture);
+    overflow: visible;
+  }
+
+  /* Grid System */
+  .matrix-grid {
+    position: absolute;
+    inset: 0;
+  }
+
+  .grid-line {
+    stroke: var(--color-grey-grid);
+    stroke-width: 1px;
+    filter: url(#grid-variation);
+    opacity: 0.3;
+  }
+
+  .grid-line-major {
+    stroke: var(--color-black);
+    stroke-width: 4px;
+    filter: url(#hand-drawn-border);
+    opacity: 1;
+  }
+
+  /* Quadrant Labels */
+  .quadrant-label {
+    position: absolute;
+    font-weight: var(--font-weight-black);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wider);
+    color: var(--color-black);
+  }
+
+  .quadrant-title {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .quadrant-subtitle {
+    font-size: var(--font-size-caption);
+    font-weight: var(--font-weight-bold);
+    color: rgba(0, 0, 0, 0.6);
+    font-family: var(--font-family-mono);
+  }
+
+  .quadrant-top-left {
+    top: var(--spacing-md);
+    left: var(--spacing-md);
+  }
+
+  .quadrant-top-right {
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    text-align: right;
+  }
+
+  .quadrant-bottom-left {
+    bottom: var(--spacing-md);
+    left: var(--spacing-md);
+  }
+
+  .quadrant-bottom-right {
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+    text-align: right;
+  }
+
+  /* Axis Labels */
+  .axis-label {
+    position: absolute;
+    font-weight: var(--font-weight-black);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: rgba(0, 0, 0, 0.8);
+    font-family: var(--font-family-mono);
+    font-size: 1.125rem;
+  }
+
+  .axis-benefit {
+    top: 50%;
+    left: -60px;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: center;
+  }
+
+  .axis-cost {
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Focus mode opacity controls */
+  .tactical-map-wrapper[data-view-mode="focus"] .project-node[data-status="inactive"] {
+    opacity: 0.4;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .tactical-map-wrapper[data-view-mode="focus"] .project-node[data-status="inactive"]:hover {
+    opacity: 0.6;
+  }
+}
