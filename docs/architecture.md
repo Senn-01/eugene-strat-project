@@ -14,7 +14,6 @@ links:
   - docs/brief.md: Product vision and strategic context - "The Strava of Project Management"
   - docs/stories/1.5.universal-components-theming.md: Current Story 1.5 with Enhanced Header Component implementation details
   - docs/stories/1.4.ui-polish-frontend-testing.md: Completed Story 1.4 with full implementation details
-  - docs/front-end-specs/6-testing-strategy-validation-phase.md: Validation phase testing approach
 ---
 
 # Eugene Strat - Architecture Guide
