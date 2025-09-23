@@ -1,5 +1,9 @@
+'use client'
+
 import { PageId } from '@/lib/types/auth.types'
 import { LogoutButton } from '@/components/auth/LogoutButton'
+import { HamburgerMenu } from './HamburgerMenu'
+import { createClient } from '@/lib/supabase/client'
 
 interface AppHeaderProps {
   pageId: PageId
@@ -42,9 +46,31 @@ const PAGE_CONFIGS = {
 
 export function AppHeader({ pageId, user }: AppHeaderProps) {
   const pageConfig = PAGE_CONFIGS[pageId]
-  
+
+  const handleResetData = async (): Promise<boolean> => {
+    const supabase = createClient()
+
+    try {
+      // Delete all projects and reset XP
+      await Promise.all([
+        supabase.from('projects').delete().neq('id', '00000000-0000-0000-0000-000000000000'),
+        supabase.from('user_preferences').upsert({
+          user_id: user?.id,
+          xp_points: 0
+        })
+      ])
+
+      // Reload the page to reflect changes
+      window.location.reload()
+      return true
+    } catch (error) {
+      console.error('Failed to reset data:', error)
+      return false
+    }
+  }
+
   return (
-    <header 
+    <header
       className="app-header"
       style={{ backgroundColor: pageConfig.headerColor }}
     >
@@ -69,9 +95,7 @@ export function AppHeader({ pageId, user }: AppHeaderProps) {
             <LogoutButton variant="secondary" />
           </>
         )}
-        <button className="header-menu-button">
-          ≡
-        </button>
+        <HamburgerMenu onResetData={handleResetData} />
       </div>
     </header>
   )

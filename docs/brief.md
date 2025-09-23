@@ -92,13 +92,13 @@ What unites them:
 **It will be considered ready for idea validation when the following are operational:**
 
 1. **Three Core pages**
-   - ✅ TacticalMap: Full project management with cost/benefit matrix
-   - ✅ DeepFocus: Complete session tracking with willpower system
-   - ✅ Analytics/Data: Basic visualizations (heatmaps, streaks, achievements)
+   - 🔶 **TacticalMap: BACKEND COMPLETE, UI INCOMPLETE** - Database operations working, but missing chart header and project creation UI
+   - 🔄 DeepFocus: Complete session tracking with willpower system (placeholder - Story 2.x)
+   - 🔄 Analytics/Data: Basic visualizations (heatmaps, streaks, achievements) (placeholder - Story 2.x)
 
 2. **Universal Components**
-   - ✅ 'Brain Dump' capture bar (CMD+K activated)
-   - ✅ XP display and updated
+   - 🔄 'Brain Dump' capture bar (CMD+K activated) (placeholder - Story 2.x)
+   - 🔶 **XP system backend complete, UI missing** - Calculation and storage working, but no display in interface
    - ✅ Navigation grid (2x2 quadrant)
    - ✅ Consistent design across all pages
 
@@ -107,11 +107,12 @@ What unites them:
    - ✅ Supabase authentication (email/password)
 
 4. **Data Persistence**
-   - ✅ Core operational tables (projects, captures, sessions, etc.)
-   - ✅ Real-time sync for captures and XP
-   - ✅ Project CRUD operations
-   - ✅ Session tracking and storage
-   - ✅ Achievements and records tracking
+   - ✅ **Core operational tables** (projects, captures, user_preferences)
+   - ✅ **Real-time project CRUD operations** with optimistic updates
+   - ✅ **Project lifecycle management** - create, edit, complete, delete
+   - ✅ **XP tracking and calculation** with Boss Battle multipliers
+   - ✅ **Data reset functionality** via hamburger menu
+   - ✅ **20-project limit enforcement** for performance
 
 **Notes**:
 

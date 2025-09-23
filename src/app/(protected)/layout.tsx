@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { AppHeader } from '@/components/layout/AppHeader'
 import { Navigation } from '@/components/layout/Navigation'
+import { XpGauge } from '@/components/layout/XpGauge'
 import { PageId } from '@/lib/types/auth.types'
 
 interface ProtectedLayoutProps {
@@ -34,6 +35,7 @@ export default async function ProtectedLayout({
   return (
     <div className="page-layout">
       <AppHeader pageId={currentPageId} user={user} />
+      <XpGauge className="xp-gauge-layout" />
       <main className="page-content">
         {children}
       </main>

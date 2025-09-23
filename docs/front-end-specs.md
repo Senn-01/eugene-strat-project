@@ -2,7 +2,7 @@
 rationale: Complete front-end design system specification for Eugene Strat Phase 1, defining neo-brutalist components with organic warmth for strategic project visualization
 version: 1.1.0
 changelog:
-  - 1.0.0: Initial comprehensive front-end specification with TacticalMap wireframes, bento-style modal, and complete component library
+  - 1.0.0: Initial comprehensive front-end specification with TacticalMap wireframes, stacked section modal, and complete component library
   - 1.1.0: Updated for Tailwind CSS v4 compatibility and React 19 patterns (CSS-first configuration, @theme directive, ref prop handling)
 links:
   - docs/brief.md: Product vision and feature requirements

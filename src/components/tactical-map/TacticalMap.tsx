@@ -1,37 +1,58 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { X } from 'lucide-react'
+import { ChartHeader } from './ChartHeader'
 import { ProjectNode } from './ProjectNode'
+import { ProjectModal } from './ProjectModal'
 import { matrixUtils } from './utils'
-
-interface Project {
-  id: string
-  name: string
-  cost: number // 1-10
-  benefit: number // 1-10
-  category: 'work' | 'learn' | 'build' | 'manage'
-  status: 'active' | 'inactive' | 'completed'
-  isBossBattle?: boolean
-}
+import { useTacticalMapState } from './useTacticalMapState'
+import { Project } from '@/lib/types/project.types'
 
 interface TacticalMapProps {
-  projects?: Project[]
+  initialProjects?: Project[]
 }
 
-export function TacticalMap({ projects = [] }: TacticalMapProps) {
-  const [mounted, setMounted] = useState(false)
-  
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+export function TacticalMap({ initialProjects = [] }: TacticalMapProps) {
+  const [viewMode, setViewMode] = useState<'all' | 'focus'>('all')
 
-  if (!mounted) {
-    return null // Prevent hydration mismatch
-  }
+  const {
+    projects,
+    isModalOpen,
+    modalMode,
+    selectedProject,
+    totalXP,
+    isLoading,
+    error,
+    initializeProjects,
+    handleProjectEdit,
+    handleProjectSave,
+    handleProjectComplete,
+    handleBossBattleToggle,
+    openCreateModal,
+    closeModal,
+    clearError,
+  } = useTacticalMapState()
+
+  useEffect(() => {
+    initializeProjects(initialProjects)
+  }, [initializeProjects, initialProjects])
+
+  // In focus mode, show all projects but let CSS handle dimming
+  const visibleProjects = projects
 
   return (
-    <div className="tactical-map-wrapper">
-      <svg xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }}>
+    <>
+      <div className="tactical-map-wrapper" data-view-mode={viewMode}>
+        <ChartHeader
+          onAddProject={openCreateModal}
+          triageCount={0} // TODO: Connect to actual capture count when triage is implemented
+          viewMode={viewMode}
+          onViewModeChange={setViewMode}
+          projectCount={projects.filter(p => p.status !== 'completed').length}
+        />
+
+        <svg xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }}>
         <defs>
           <filter id="paper-texture">
             <feTurbulence 
@@ -141,17 +162,50 @@ export function TacticalMap({ projects = [] }: TacticalMapProps) {
         <div className="axis-label axis-cost">COST</div>
 
         {/* Project nodes */}
-        {projects.map((project) => {
-          const position = matrixUtils.coordsToPixels(project.cost, project.benefit)
-          return (
-            <ProjectNode
-              key={project.id}
-              project={project}
-              position={position}
-            />
-          )
-        })}
+        {visibleProjects
+          .filter(project => project.status !== 'completed')
+          .map((project) => {
+            const position = matrixUtils.coordsToPixels(project.cost, project.benefit)
+            return (
+              <ProjectNode
+                key={project.id}
+                project={project}
+                position={position}
+                onEdit={handleProjectEdit}
+                onComplete={handleProjectComplete}
+                onToggleBossBattle={handleBossBattleToggle}
+              />
+            )
+          })}
       </div>
+
+      {/* Error Display */}
+      {error && (
+        <div className="tactical-map-error" onClick={clearError}>
+          <div className="error-message">{error}</div>
+          <button className="error-dismiss">
+            <X size={16} aria-label="Dismiss error" />
+          </button>
+        </div>
+      )}
+
+      {/* Loading Overlay */}
+      {isLoading && (
+        <div className="tactical-map-loading">
+          <div className="loading-spinner">Loading...</div>
+        </div>
+      )}
     </div>
+
+    {/* Project Modal */}
+    <ProjectModal
+      isOpen={isModalOpen}
+      project={selectedProject}
+      mode={modalMode}
+      onClose={closeModal}
+      onSave={handleProjectSave}
+      existingProjects={projects}
+    />
+  </>
   )
 }
