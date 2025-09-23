@@ -12,35 +12,8 @@ interface AppHeaderProps {
   } | null
 }
 
-const PAGE_CONFIGS = {
-  'tactical-map': {
-    id: 'tactical-map' as const,
-    title: 'Tactical Map',
-    route: '/tactical-map',
-    navLabel: 'MAP'
-  },
-  'deep-focus': {
-    id: 'deep-focus' as const,
-    title: 'Deep Focus',
-    route: '/deep-focus',
-    navLabel: 'FOC'
-  },
-  'analytics': {
-    id: 'analytics' as const,
-    title: 'Analytics',
-    route: '/analytics',
-    navLabel: 'DAT'
-  },
-  'prime': {
-    id: 'prime' as const,
-    title: 'Prime',
-    route: '/prime',
-    navLabel: 'PRI'
-  }
-}
 
 export function AppHeader({ pageId, user }: AppHeaderProps) {
-  const pageConfig = PAGE_CONFIGS[pageId]
 
   const handleResetData = async (): Promise<boolean> => {
     const supabase = createClient()
@@ -73,9 +46,9 @@ export function AppHeader({ pageId, user }: AppHeaderProps) {
       </div>
 
       <div className="header-center">
-        <div className="brain-dump-placeholder">
-          Brain Dump Placeholder
-        </div>
+        <button className="brain-dump-placeholder">
+          Brain Dump ⌘+K
+        </button>
       </div>
 
       <div className="header-right">

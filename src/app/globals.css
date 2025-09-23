@@ -58,7 +58,7 @@
   --shadow-large: 8px 8px 0px var(--color-black);
 
   /* Layout Constants */
-  --header-height: 60px;
+  --header-height: 80px;
   --matrix-size: 800px;
   --modal-width: 950px;
   --modal-height: 550px;
