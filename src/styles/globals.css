@@ -60,8 +60,8 @@
   /* Layout Constants */
   --header-height: 60px;
   --matrix-size: 800px;
-  --modal-width: 950px;
-  --modal-height: 550px;
+  --modal-width: 740px;
+  --modal-height: 720px;
   --nav-size: 48px;
 }
 
@@ -74,6 +74,7 @@
 
 /* Feature Styles */
 @import "./features/tactical-map/index.css" layer(components);
+@import "./features/deep-focus/index.css" layer(components);
 
 /* Theme System */
 @import "./themes/page-themes.css";

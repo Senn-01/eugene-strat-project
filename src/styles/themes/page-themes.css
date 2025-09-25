@@ -18,20 +18,25 @@
 }
 
 [data-page-theme="deep-focus"] {
-  --page-color: var(--color-focus);
+  --page-color: #224718; /* Dark green - brutal-calm */
   --header-bg: #224718; /* Dark green primary */
-  --button-primary: var(--color-focus);
-  --accent-shadow: oklch(82% 0.18 115); /* Green accent */
-  --xp-background: var(--color-focus);
+  --button-primary: #CFE820; /* Bright green - brutal-energy */
+  --accent-shadow: #000000; /* Black - brutal-authority */
+  --xp-background: #224718; /* Dark green */
 
-  /* Header Element Colors - Nature/Focus Theme */
-  --logo-color: #CFE820; /* Lime for vibrancy */
-  --brain-dump-bg: #CFE820; /* Lime background */
-  --brain-dump-text: #224718; /* Dark green text */
-  --hamburger-bg: #E5EED0; /* Cream background */
+  /* Header Element Colors - 4-Color Neo-Brutalist Theme */
+  --logo-color: #CFE820; /* Bright green for vibrancy */
+  --brain-dump-bg: #CFE820; /* Bright green background */
+  --brain-dump-text: #000000; /* Black text */
+  --hamburger-bg: #ffffff; /* White background */
   --hamburger-text: #224718; /* Dark green text */
   --hamburger-dropdown-bg: #224718; /* Dark green */
-  --hamburger-dropdown-accent: #CFE820; /* Lime accents */
+  --hamburger-dropdown-accent: #CFE820; /* Bright green accents */
+}
+
+/* XP Gauge color override for deep-focus dark green background */
+[data-page-theme="deep-focus"] .xp-display {
+  color: #ffffff; /* White text on dark green */
 }
 
 [data-page-theme="analytics"] {

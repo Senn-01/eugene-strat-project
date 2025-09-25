@@ -60,8 +60,8 @@
   /* Layout Constants */
   --header-height: 80px;
   --matrix-size: 800px;
-  --modal-width: 950px;
-  --modal-height: 550px;
+  --modal-width: 740px;
+  --modal-height: 720px;
   --nav-size: 48px;
 }
 
@@ -1184,24 +1184,61 @@ body {
 }
 
 /* Horizontal Layout - Everything at a glance */
-.horizontal-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-md);
+/* Single Column Modal Layout */
+.single-column-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   height: 100%;
   padding: 0;
 }
 
-.form-left-column {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
+/* Modal Sections */
+.modal-section {
+  border: 2px solid var(--color-black);
+  box-shadow: var(--shadow-base);
 }
 
-.form-right-column {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
+.modal-section-yellow {
+  background: var(--color-yellow-primary);
+  border: 3px solid var(--color-black);
+}
+
+.modal-section-white {
+  background: var(--color-white);
+}
+
+.modal-section-grey {
+  background: #fafaf9;
+}
+
+/* Section Headers */
+.section-header {
+  padding: 6px 16px;
+  border-bottom: 2px solid var(--color-black);
+}
+
+.section-header-yellow {
+  background: var(--color-yellow-primary);
+  color: var(--color-black);
+}
+
+.section-header-grey {
+  background: var(--color-grey-grid);
+  color: var(--color-black);
+}
+
+.section-content {
+  padding: 16px;
+}
+
+/* Section Titles */
+.section-title {
+  font-weight: var(--font-weight-black);
+  font-size: var(--font-size-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wider);
+  margin: 0;
 }
 
 .settings-vertical {
@@ -1324,7 +1361,7 @@ body {
 /* Category Horizontal */
 .category-horizontal {
   display: flex;
-  gap: 4px;
+  gap: 12px;
 }
 
 /* Priority & Status Grid */
@@ -1394,6 +1431,88 @@ body {
 .toggle-button:not(.selected) {
   background: var(--color-grey-unselected);
   color: var(--color-white);
+}
+
+/* Tags Section */
+.tags-section {
+  margin-top: 16px;
+}
+
+.tags-section .field-input {
+  height: 40px;
+  padding: 8px 12px;
+  box-sizing: border-box;
+}
+
+.field-label {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-black);
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Confidence Blocks */
+.confidence-section {
+  margin-bottom: 16px;
+}
+
+.confidence-blocks {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.confidence-block {
+  flex: 1;
+  border: 2px solid var(--color-black);
+  padding: 12px 8px;
+  font-weight: var(--font-weight-black);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  font-size: var(--font-size-caption);
+  transition: all 100ms;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: var(--color-white);
+  color: var(--color-black);
+  min-height: 50px;
+}
+
+.confidence-block.selected {
+  background: var(--color-yellow-primary);
+  color: var(--color-black);
+  box-shadow: var(--shadow-base);
+}
+
+.confidence-block:not(.selected) {
+  background: var(--color-grey-unselected);
+  color: var(--color-white);
+}
+
+.confidence-block:hover {
+  transform: translate(-1px, -1px);
+}
+
+.confidence-label {
+  font-size: 11px;
+  font-weight: var(--font-weight-black);
+}
+
+.confidence-number {
+  font-size: 16px;
+  font-weight: var(--font-weight-black);
+  font-family: var(--font-family-mono);
+}
+
+.due-date-section {
+  margin-top: 12px;
 }
 
 /* Section 4: Confidence & Timeline */
@@ -1600,6 +1719,74 @@ body {
 
 .category-button:hover {
   transform: translate(-1px, -1px);
+}
+
+/* Category Button Patterns */
+.category-button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  padding: var(--spacing-xs);
+  gap: 4px;
+}
+
+
+.pattern-work .category-pattern {
+  background-image:
+    radial-gradient(circle at 2px 2px, var(--color-black) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 6px 6px, var(--color-black) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 10px 10px, var(--color-black) 1.5px, transparent 1.5px);
+  background-size: 8px 8px, 8px 8px, 8px 8px;
+  background-position: 0 0, 4px 4px, 8px 8px;
+}
+
+.pattern-learn .category-pattern {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--color-black),
+    var(--color-black) 2px,
+    transparent 2px,
+    transparent 8px
+  );
+}
+
+.pattern-build .category-pattern {
+  background-image:
+    linear-gradient(var(--color-black) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, var(--color-black) 1.5px, transparent 1.5px);
+  background-size: 6px 6px;
+}
+
+.pattern-manage .category-pattern {
+  background-image: repeating-linear-gradient(
+    0deg,
+    var(--color-black),
+    var(--color-black) 2px,
+    transparent 2px,
+    transparent 8px
+  );
+}
+
+/* Pattern visibility based on selection state */
+.category-button.selected .category-pattern {
+  opacity: 0.6;
+  filter: none;
+}
+
+.category-button:not(.selected) .category-pattern {
+  opacity: 0.7;
+  filter: invert(1);  /* White patterns on grey background */
+}
+
+/* Ensure pattern area has proper sizing */
+.category-pattern {
+  width: 100%;
+  height: 24px;
+  position: relative;
+  margin-bottom: 4px;
 }
 
 .category-label {

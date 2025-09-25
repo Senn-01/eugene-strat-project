@@ -1,0 +1,308 @@
+/* DeepFocus Components - 4-Color Neo-Brutalist System */
+@layer components {
+
+  /* DeepFocus Color Variables - Crayon/Cream System */
+  :root {
+    --df-page-bg: #e8e8e6;         /* Crayon - Page backgrounds (matching TacticalMap) */
+    --df-card-bg: #E5EED0;         /* Cream - Card surfaces, elevated panels */
+    --df-input-bg: #ffffff;        /* White - Input fields only */
+    --df-text: #000000;            /* Black - Text, borders, structure */
+    --df-focus: #224718;           /* Dark Green - Active states, progress */
+    --df-action: #CFE820;          /* Bright Green - Primary actions */
+    --df-special: #E5B6E5;         /* Pink - Special states, rewards */
+
+    /* Legacy brutal variables for backward compatibility */
+    --brutal-authority: var(--df-text);
+    --brutal-clarity: var(--df-input-bg);
+    --brutal-calm: var(--df-focus);
+    --brutal-energy: var(--df-action);
+  }
+
+  /* Phase-Adaptive Intensity Classes */
+
+  /* Setup Phase: "Decision Energy" - Cream card on crayon background */
+  .phase-setup {
+    background-color: var(--df-card-bg); /* Cream */
+    color: var(--df-text); /* Black text */
+    border: 3px solid var(--df-text);
+    box-shadow: 6px 6px 0px var(--df-text);
+  }
+
+  .phase-setup .btn-primary {
+    background: var(--df-action); /* Bright Green */
+    color: var(--df-text); /* Black */
+    border: 3px solid var(--df-text);
+    box-shadow: 6px 6px 0px var(--df-text);
+  }
+
+  .phase-setup .btn-primary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 4px 4px 0px var(--df-text);
+  }
+
+  .phase-setup .btn-secondary {
+    background: var(--df-input-bg); /* White */
+    color: var(--df-focus); /* Dark Green */
+    border: 2px solid var(--df-text);
+  }
+
+  /* Duration/Toggle buttons in setup phase */
+  .phase-setup .toggle-button {
+    background: var(--df-card-bg) !important; /* Cream */
+    color: var(--df-focus) !important; /* Dark Green */
+    border: 2px solid var(--df-text) !important;
+    transition: all 200ms;
+  }
+
+  .phase-setup .toggle-button.selected {
+    background: var(--df-focus) !important; /* Dark Green */
+    color: var(--df-input-bg) !important; /* White */
+    border: 3px solid var(--df-text) !important;
+    box-shadow: 4px 4px 0px var(--df-text) !important;
+  }
+
+  .phase-setup .toggle-button:hover {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0px var(--df-text);
+  }
+
+  /* Willpower Select Phase: "Energy Assessment" - Cream card with white options */
+  .phase-willpower {
+    background-color: var(--df-card-bg); /* Cream */
+    color: var(--df-text); /* Black text */
+    border: 3px solid var(--df-text);
+    box-shadow: 6px 6px 0px var(--df-text);
+  }
+
+  .phase-willpower .willpower-option {
+    background: var(--df-input-bg); /* White */
+    border: 2px solid var(--df-text);
+    color: var(--df-focus); /* Dark Green */
+    transition: all 200ms;
+  }
+
+  .phase-willpower .willpower-option:hover {
+    background: var(--df-special); /* Pink */
+    color: var(--df-text); /* Black */
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0px var(--df-text);
+  }
+
+  /* Active Session Phase: "Focus Calm" - Reduced visual intensity */
+  .phase-active {
+    background-color: var(--df-card-bg); /* Cream */
+    color: var(--df-focus); /* Dark Green */
+    border: 2px solid rgba(0, 0, 0, 0.6);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .phase-active .timer-display {
+    color: var(--df-focus); /* Dark Green - no pink */
+    background: var(--df-card-bg); /* Cream */
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    /* NO box-shadow - eliminates visual noise */
+  }
+
+  .phase-active .project-name {
+    color: var(--df-focus); /* Dark Green */
+    opacity: 0.8;
+  }
+
+  .phase-active .difficulty-quote {
+    color: var(--df-text); /* Black */
+    opacity: 0.7;
+  }
+
+  .phase-active .btn-interrupt {
+    background: var(--df-special); /* Pink - gentle warning */
+    color: var(--df-text); /* Black */
+    border: 2px solid var(--df-text);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .phase-active .btn-interrupt:hover {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Completion Phase: "Victory Celebration" - Cream with pink accents */
+  .phase-complete {
+    background-color: var(--df-card-bg); /* Cream */
+    color: var(--df-text); /* Black */
+    border: 4px solid var(--df-text);
+    box-shadow: 12px 12px 0px var(--df-text);
+  }
+
+  .phase-complete .xp-reward-display {
+    background: var(--df-special); /* Pink - celebration color */
+    color: var(--df-text); /* Black text */
+    border: 4px solid var(--df-text);
+    box-shadow: 8px 8px 0px var(--df-text);
+    font-size: 3rem;
+    font-weight: 900;
+  }
+
+  .phase-complete .mindset-feedback-button {
+    background: var(--df-input-bg); /* White */
+    border: 2px solid var(--df-text);
+    color: var(--df-focus); /* Dark Green */
+    transition: all 200ms;
+  }
+
+  .phase-complete .mindset-feedback-button:hover {
+    background: var(--df-focus); /* Dark Green on selection */
+    color: var(--df-input-bg); /* White text */
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0px var(--df-text);
+  }
+
+  /* Daily Commitment Slider: "Always Visible" - Cream widget */
+  .daily-commitment-slider {
+    background: var(--df-card-bg); /* Cream */
+    border: 3px solid var(--df-text);
+    color: var(--df-text); /* Black text */
+    box-shadow: 4px 4px 0px var(--df-text);
+  }
+
+  .daily-commitment-slider .slider-track {
+    background: var(--df-input-bg); /* White track when editable */
+  }
+
+  .daily-commitment-slider .slider-thumb {
+    background: var(--df-text); /* Black thumb */
+    border: 2px solid var(--df-input-bg); /* White border */
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+  }
+
+  .daily-commitment-slider .progress-bar {
+    background: var(--df-focus); /* Dark Green progress */
+  }
+
+  .daily-commitment-slider .progress-bar.completed {
+    background: var(--df-special); /* Pink when completed */
+  }
+
+  /* Required Color Combinations for Accessibility */
+  .text-on-crayon {
+    background: var(--df-page-bg); /* Crayon */
+    color: var(--df-text); /* Black */
+  }
+
+  .text-on-cream {
+    background: var(--df-card-bg); /* Cream */
+    color: var(--df-text); /* Black */
+  }
+
+  .text-on-white {
+    background: var(--df-input-bg); /* White */
+    color: var(--df-text); /* Black */
+  }
+
+  .text-on-dark-green {
+    background: var(--df-focus); /* Dark Green */
+    color: var(--df-input-bg); /* White */
+  }
+
+  .text-on-bright-green {
+    background: var(--df-action); /* Bright Green */
+    color: var(--df-text); /* Black */
+  }
+
+  .text-on-pink {
+    background: var(--df-special); /* Pink */
+    color: var(--df-text); /* Black */
+  }
+
+  .text-on-black {
+    background: var(--df-text); /* Black */
+    color: var(--df-input-bg); /* White */
+  }
+
+  /* Utility Classes for Intensity Levels */
+  .brutal-intensity-maximum {
+    border: 4px solid var(--df-text);
+    box-shadow: 12px 12px 0px var(--df-text);
+  }
+
+  .brutal-intensity-high {
+    border: 3px solid var(--df-text);
+    box-shadow: 8px 8px 0px var(--df-text);
+  }
+
+  .brutal-intensity-medium {
+    border: 2px solid var(--df-text);
+    box-shadow: 4px 4px 0px var(--df-text);
+  }
+
+  .brutal-intensity-low {
+    border: 2px solid rgba(0, 0, 0, 0.6);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .brutal-intensity-minimal {
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    /* NO box-shadow */
+  }
+
+  /* Common Button Styles */
+  .btn-primary-df {
+    background: var(--df-action);
+    color: var(--df-text);
+    border: 3px solid var(--df-text);
+    box-shadow: 6px 6px 0px var(--df-text);
+    transition: all 200ms;
+  }
+
+  .btn-primary-df:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 4px 4px 0px var(--df-text);
+  }
+
+  .btn-secondary-df {
+    background: var(--df-input-bg);
+    color: var(--df-focus);
+    border: 2px solid var(--df-text);
+    transition: all 200ms;
+  }
+
+  .btn-secondary-df:hover {
+    background: var(--df-focus);
+    color: var(--df-input-bg);
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0px var(--df-text);
+  }
+
+  .btn-special-df {
+    background: var(--df-special);
+    color: var(--df-text);
+    border: 2px solid var(--df-text);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+    transition: all 200ms;
+  }
+
+  .btn-special-df:hover {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Card Styles */
+  .card-df {
+    background: var(--df-card-bg);
+    border: 2px solid var(--df-text);
+    box-shadow: 4px 4px 0px var(--df-text);
+  }
+
+  .card-df-elevated {
+    background: var(--df-card-bg);
+    border: 3px solid var(--df-text);
+    box-shadow: 6px 6px 0px var(--df-text);
+  }
+
+  /* XP Display Style */
+  .xp-display-df {
+    background: var(--df-special);
+    color: var(--df-text);
+    border: 4px solid var(--df-text);
+    box-shadow: 8px 8px 0px var(--df-text);
+  }
+}

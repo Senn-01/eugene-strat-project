@@ -1,0 +1,67 @@
+/* DeepFocus Feature Styles */
+
+/* Import DeepFocus component styles */
+@import './components.css';
+
+/* DeepFocus Page Layout */
+@layer components {
+  .deep-focus-page {
+    min-height: 100vh;
+    background: var(--df-page-bg, #e8e8e6);
+    font-family: var(--font-family-mono);
+  }
+
+  .deep-focus-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+  }
+
+  .deep-focus-main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-lg);
+    align-items: start;
+  }
+
+  .deep-focus-content {
+    min-height: 600px;
+    width: 100%;
+  }
+
+  .deep-focus-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  /* Session Components Spacing */
+  .session-component {
+    width: 100%;
+  }
+
+  /* Typography overrides for DeepFocus */
+  .deep-focus-page h1,
+  .deep-focus-page h2,
+  .deep-focus-page h3 {
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    font-weight: var(--font-weight-black);
+  }
+
+  .deep-focus-page .font-mono {
+    font-family: var(--font-family-mono);
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 1024px) {
+    .deep-focus-main {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+
+    .deep-focus-container {
+      padding: var(--spacing-md);
+    }
+  }
+}

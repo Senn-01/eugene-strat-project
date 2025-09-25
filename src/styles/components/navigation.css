@@ -24,7 +24,7 @@
 
   .header-logo {
     font-family: var(--font-family-primary);
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     font-weight: var(--font-weight-black);
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -46,10 +46,10 @@
     border: var(--border-width-standard) solid var(--color-black);
     padding: var(--spacing-xs) var(--spacing-sm);
     font-family: var(--font-family-primary);
-    font-size: 0.875rem;
+    font-size: 1.125rem;
     font-weight: var(--font-weight-black);
     text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wide);
+    letter-spacing: 0.08em;
     box-shadow: var(--shadow-base);
     transition: all 200ms ease;
     cursor: pointer;
@@ -125,20 +125,21 @@
 
   .nav-button:hover {
     transform: translate(-1px, -1px);
+    opacity: 1;
   }
 
   /* Page-specific nav colors */
-  .nav-map {
+  .nav-tacticalmap {
     background: var(--color-tactical);
     color: var(--color-black);
   }
 
-  .nav-focus {
+  .nav-deepfocus {
     background: var(--color-focus);
     color: var(--color-black);
   }
 
-  .nav-data {
+  .nav-analytics {
     background: var(--color-data);
     color: var(--color-black);
   }

@@ -181,14 +181,14 @@ export function ProjectModal({
         </div>
 
         <form onSubmit={handleSubmit} className="modal-body">
-          <div className="horizontal-form">
+          <div className="single-column-form">
 
-            {/* Left Column */}
-            <div className="form-left-column">
-
-              {/* Project Name */}
-              <div className="form-section">
-                <h3 className="section-title">Project Name</h3>
+            {/* Section 1: Project Identity */}
+            <div className="modal-section modal-section-yellow">
+              <div className="section-header section-header-yellow">
+                <h3 className="section-title">WHAT&apos;S THE PROJECT?</h3>
+              </div>
+              <div className="section-content">
                 <input
                   type="text"
                   className="field-input"
@@ -199,13 +199,17 @@ export function ProjectModal({
                 />
                 {errors.name && <div className="field-error">{errors.name}</div>}
               </div>
+            </div>
 
-              {/* Cost & Benefit */}
-              <div className="form-section">
-                <h3 className="section-title">Strategic Position</h3>
+            {/* Section 2: Strategic Position */}
+            <div className="modal-section modal-section-white">
+              <div className="section-header section-header-yellow">
+                <h3 className="section-title">POSITION ON MATRIX</h3>
+              </div>
+              <div className="section-content">
                 <div className="strategic-grid">
                   <div className="slider-container">
-                    <label className="slider-label">Cost (1-10)</label>
+                    <label className="slider-label">Effort (Cost)</label>
                     <input
                       type="range"
                       min="1"
@@ -214,14 +218,14 @@ export function ProjectModal({
                       onChange={(e) => setFormData({ ...formData, cost: Number(e.target.value) })}
                       className="slider-input"
                     />
-                    <div className="slider-value">{formData.cost}</div>
+                    <div className="slider-value">{formData.cost} of 10</div>
                     <div className="slider-guidance">
                       {getCostGuidance(formData.cost)}
                     </div>
                   </div>
 
                   <div className="slider-container">
-                    <label className="slider-label">Benefit (1-10)</label>
+                    <label className="slider-label">Value (Benefit)</label>
                     <input
                       type="range"
                       min="1"
@@ -230,7 +234,7 @@ export function ProjectModal({
                       onChange={(e) => setFormData({ ...formData, benefit: Number(e.target.value) })}
                       className="slider-input"
                     />
-                    <div className="slider-value">{formData.benefit}</div>
+                    <div className="slider-value">{formData.benefit} of 10</div>
                     <div className="slider-guidance">
                       {getBenefitGuidance(formData.benefit)}
                     </div>
@@ -240,45 +244,64 @@ export function ProjectModal({
                   <div className="coordinate-error">{errors.coordinates}</div>
                 )}
               </div>
-
             </div>
 
-            {/* Right Column */}
-            <div className="form-right-column">
-
-              {/* Category */}
-              <div className="form-section">
-                <h3 className="section-title">Category</h3>
+            {/* Section 3: Category & Tags */}
+            <div className="modal-section modal-section-white">
+              <div className="section-header section-header-yellow">
+                <h3 className="section-title">CATEGORIZE & TAG</h3>
+              </div>
+              <div className="section-content">
                 <div className="category-horizontal">
                   {[
-                    { value: 'work', label: 'Work' },
-                    { value: 'learn', label: 'Learn' },
-                    { value: 'build', label: 'Build' },
-                    { value: 'manage', label: 'Manage' },
+                    { value: 'work', label: 'WORK' },
+                    { value: 'learn', label: 'LEARN' },
+                    { value: 'build', label: 'BUILD' },
+                    { value: 'manage', label: 'MANAGE' },
                   ].map((cat) => (
                     <button
                       key={cat.value}
                       type="button"
-                      className={`category-button ${formData.category === cat.value ? 'selected' : ''}`}
+                      className={`category-button pattern-${cat.value} ${formData.category === cat.value ? 'selected' : ''}`}
                       onClick={() => setFormData({ ...formData, category: cat.value as Project['category'] })}
                     >
-                      {cat.label}
+                      <div className="category-pattern"></div>
+                      <span className="category-label">{cat.label}</span>
                     </button>
                   ))}
                 </div>
-              </div>
 
-              {/* Priority & Status */}
-              <div className="form-section">
-                <h3 className="section-title">Priority & Status</h3>
+                {/* Tags */}
+                <div className="tags-section">
+                  <label className="field-label">Tags (optional):</label>
+                  <input
+                    type="text"
+                    className="field-input"
+                    value={formData.tags?.join(', ') || ''}
+                    onChange={(e) => setFormData({
+                      ...formData,
+                      tags: e.target.value.split(',').map(tag => tag.trim()).filter(Boolean)
+                    })}
+                    placeholder="e.g., frontend, urgent, client"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Section 4: Priority & Status */}
+            <div className="modal-section modal-section-white">
+              <div className="section-header section-header-yellow">
+                <h3 className="section-title">PRIORITIZE & STATUS</h3>
+              </div>
+              <div className="section-content">
                 <div className="priority-status-grid">
                   <div className="setting-group">
-                    <label className="setting-label">Priority</label>
+                    <label className="setting-label">Priority:</label>
                     <div className="toggle-group-horizontal">
                       {[
-                        { value: 'must', label: 'Must' },
-                        { value: 'should', label: 'Should' },
-                        { value: 'nice', label: 'Nice' },
+                        { value: 'must', label: 'MUST' },
+                        { value: 'should', label: 'SHOULD' },
+                        { value: 'nice', label: 'NICE' },
                       ].map((pri) => (
                         <button
                           key={pri.value}
@@ -293,7 +316,7 @@ export function ProjectModal({
                   </div>
 
                   <div className="setting-group">
-                    <label className="setting-label">Status</label>
+                    <label className="setting-label">Status:</label>
                     <div className="toggle-group-horizontal">
                       {statusOptions.map((stat) => (
                         <button
@@ -309,59 +332,41 @@ export function ProjectModal({
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Confidence */}
-              <div className="form-section">
-                <h3 className="section-title">Confidence Level</h3>
-                <input
-                  type="range"
-                  min="1"
-                  max="5"
-                  value={confidenceLabels.find(c => c.value === formData.confidence)?.number || 3}
-                  onChange={(e) => {
-                    const confIndex = Number(e.target.value) - 1
-                    setFormData({ ...formData, confidence: confidenceLabels[confIndex].value as Project['confidence'] })
-                  }}
-                  className="confidence-slider"
-                />
-                <div className="slider-value">
-                  {confidenceLabels.find(c => c.value === formData.confidence)?.label || 'Gut Feel'}
+            {/* Section 5: Confidence & Timeline */}
+            <div className="modal-section modal-section-grey">
+              <div className="section-header section-header-grey">
+                <h3 className="section-title">CONFIDENCE & TIMELINE</h3>
+              </div>
+              <div className="section-content">
+                <div className="confidence-section">
+                  <label className="field-label">How confident are you?</label>
+                  <div className="confidence-blocks">
+                    {confidenceLabels.map((conf) => (
+                      <button
+                        key={conf.value}
+                        type="button"
+                        className={`confidence-block ${formData.confidence === conf.value ? 'selected' : ''}`}
+                        onClick={() => setFormData({ ...formData, confidence: conf.value as Project['confidence'] })}
+                      >
+                        <div className="confidence-label">{conf.label}</div>
+                        <div className="confidence-number">{conf.number}</div>
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div className="confidence-labels">
-                  <span className="confidence-label">Britney</span>
-                  <span className="confidence-label">Leap</span>
-                  <span className="confidence-label">Gut</span>
-                  <span className="confidence-label">Magna</span>
-                  <span className="confidence-label">JCVD</span>
+
+                <div className="due-date-section">
+                  <label className="field-label">Due Date (optional):</label>
+                  <input
+                    type="date"
+                    value={formData.due_date || ''}
+                    onChange={(e) => setFormData({ ...formData, due_date: e.target.value || null })}
+                    className="date-input"
+                  />
                 </div>
               </div>
-
-              {/* Due Date */}
-              <div className="form-section">
-                <h3 className="section-title">Due Date</h3>
-                <input
-                  type="date"
-                  value={formData.due_date || ''}
-                  onChange={(e) => setFormData({ ...formData, due_date: e.target.value || null })}
-                  className="date-input"
-                />
-              </div>
-
-              {/* Tags */}
-              <div className="form-section">
-                <h3 className="section-title">Tags (Optional)</h3>
-                <input
-                  type="text"
-                  className="field-input"
-                  value={formData.tags?.join(', ') || ''}
-                  onChange={(e) => setFormData({
-                    ...formData,
-                    tags: e.target.value.split(',').map(tag => tag.trim()).filter(Boolean)
-                  })}
-                  placeholder="tag1, tag2, tag3"
-                />
-              </div>
-
             </div>
 
           </div>
