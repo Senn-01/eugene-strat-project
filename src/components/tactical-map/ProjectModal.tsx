@@ -265,7 +265,6 @@ export function ProjectModal({
                       className={`category-button pattern-${cat.value} ${formData.category === cat.value ? 'selected' : ''}`}
                       onClick={() => setFormData({ ...formData, category: cat.value as Project['category'] })}
                     >
-                      <div className="category-pattern"></div>
                       <span className="category-label">{cat.label}</span>
                     </button>
                   ))}
