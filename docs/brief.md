@@ -1,10 +1,20 @@
-
+---
+rationale: Project brief defining vision, scope, and technical specifications for "The Strava of Project Management" - comprehensive strategic planning tool
+version: 2.0.0
+changelog:
+  - 2.0.0: MAJOR UPDATE - Updated tech stack to match actual implementation, marked DeepFocus as complete (Story 1.6), corrected validation criteria
+  - 1.0.0: Initial project brief with core concept, user journey, and idea validation criteria
+links:
+  - docs/architecture.md: Technical implementation details and component structure
+  - README.md: Current project status and setup instructions
+  - docs/stories/1.6.deepfocus-implementation.md: Complete DeepFocus implementation details
+---
 
 # Eugene Strat - Brief
 
 ## What it is
 
-- A professional strategic visual planning tool, with integrated deep work sessions and analytics.
+- A professional strategic visual planning tool, 'strava of project management',  with integrated deep work sessions and analytics.
 
 - **Two Core Functions:**
   - **STRATEGIC MAP**: Visual project overview using cost/benefit positioning
@@ -93,7 +103,7 @@ What unites them:
 
 1. **Three Core pages**
    - ✅ **TacticalMap: COMPLETE** - Full implementation with chart header, project creation modal, cost/benefit matrix, and all interactions
-   - 🔄 DeepFocus: Complete session tracking with willpower system (placeholder - Story 2.x)
+   - ✅ **DeepFocus: COMPLETE** - Complete session tracking with willpower system, timer functionality, XP rewards, daily commitment tracking (Story 1.6)
    - 🔄 Analytics/Data: Basic visualizations (heatmaps, streaks, achievements) (placeholder - Story 2.x)
 
 2. **Universal Components**
@@ -163,13 +173,11 @@ What unites them:
 - **Next.js 15** (App Router) - Simple structure, combined landing/auth
 - **React 19**
 - **TypeScript 5**
-- **@tanstack/react-query v5** - Server state management
 - **@supabase/supabase-js v2** - Database client
-- **Tailwind CSS v4**
-- **shadcn/ui v4** components with Neobrutalism styling
+- **@supabase/ssr** - Server-side rendering support
+- **Tailwind CSS v4** - CSS-first configuration with modular architecture
 - **lucide-react** - Icons (clean, consistent, lightweight)
-- **Framer Motion v11** - Animations
-- **Recharts v2** - Data visualizations
+- **react-use** - React hooks library for state management
 
 ### Backend & Database
 
