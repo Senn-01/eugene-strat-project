@@ -36,7 +36,7 @@
   }
 
   .btn-danger {
-    background: #dc2626;
+    background: black;
     color: var(--color-white);
   }
 
@@ -135,7 +135,7 @@
   }
 
   .button-complete {
-    background: var(--color-data);
+    background: var(--button-primary);
     color: var(--color-black);
   }
 

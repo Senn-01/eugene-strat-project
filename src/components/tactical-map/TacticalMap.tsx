@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { X } from 'lucide-react'
+import { X, Eye, EyeOff } from 'lucide-react'
 import { ChartHeader } from './ChartHeader'
 import { ProjectNode } from './ProjectNode'
 import { ProjectModal } from './ProjectModal'
@@ -47,9 +47,6 @@ export function TacticalMap({ initialProjects = [] }: TacticalMapProps) {
         <ChartHeader
           onAddProject={openCreateModal}
           triageCount={0} // TODO: Connect to actual capture count when triage is implemented
-          viewMode={viewMode}
-          onViewModeChange={setViewMode}
-          projectCount={projects.filter(p => p.status !== 'completed').length}
         />
 
         <svg xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }}>
@@ -177,6 +174,27 @@ export function TacticalMap({ initialProjects = [] }: TacticalMapProps) {
               />
             )
           })}
+      </div>
+
+      <div className="matrix-footer">
+        <div className={`chart-footer-controls ${viewMode === 'focus' ? 'focus' : 'all'}`}>
+          <button
+            className="icon-toggle"
+            type="button"
+            title={viewMode === 'all' ? 'Switch to Focus mode' : 'Show all projects'}
+            onClick={() => setViewMode(viewMode === 'all' ? 'focus' : 'all')}
+          >
+            <span className="icon-square" aria-hidden="true">
+              {viewMode === 'all' ? (
+                <Eye size={12} />
+              ) : (
+                <EyeOff size={12} />
+              )}
+            </span>
+            <span className="toggle-label">{viewMode === 'all' ? 'ALL' : 'FOCUS'}</span>
+          </button>
+          <div className="visible-count">projects counts : {projects.filter(p => p.status !== 'completed').length}</div>
+        </div>
       </div>
 
       {/* Error Display */}

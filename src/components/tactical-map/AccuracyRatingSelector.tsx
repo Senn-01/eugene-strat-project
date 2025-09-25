@@ -25,14 +25,13 @@ export function AccuracyRatingSelector({
 }: AccuracyRatingSelectorProps) {
   const [selectedRating, setSelectedRating] = useState<number>(3)
 
-  const calculateXP = (rating: number): number => {
-    const baseXP = xpUtils.calculateProjectXP(project.cost, project.benefit, project.isBossBattle)
-    // Apply accuracy rating multiplier: rating/5 (1=20%, 2=40%, 3=60%, 4=80%, 5=100%)
-    return Math.round(baseXP * (rating / 5))
+  const calculateXP = (): number => {
+    // Flat XP regardless of accuracy rating - rating is for learning only
+    return xpUtils.calculateProjectXP(project.cost, project.benefit, project.isBossBattle)
   }
 
   const handleComplete = () => {
-    const xpEarned = calculateXP(selectedRating)
+    const xpEarned = calculateXP()
 
     // Immediately update XP gauge with lighting effect
     const currentXp = getCurrentXpFromGauge() || 0
@@ -54,14 +53,25 @@ export function AccuracyRatingSelector({
     return null
   }
 
+  const getRatingLabel = (rating: number): string => {
+    switch (rating) {
+      case 1: return 'HARDER'
+      case 2: return 'TOUGH'
+      case 3: return 'ACCURATE'
+      case 4: return 'EASY'
+      case 5: return 'BREEZE'
+      default: return 'ACCURATE'
+    }
+  }
+
   const getRatingDescription = (rating: number): string => {
     switch (rating) {
-      case 1: return 'Poor - Significant issues'
-      case 2: return 'Below Average - Some problems'
-      case 3: return 'Average - Met expectations'
-      case 4: return 'Good - Exceeded expectations'
-      case 5: return 'Excellent - Outstanding work'
-      default: return 'Average'
+      case 1: return 'Much Harder - Significantly underestimated effort'
+      case 2: return 'Harder - Somewhat underestimated'
+      case 3: return 'Spot On - Accurate estimation!'
+      case 4: return 'Easier - Somewhat overestimated'
+      case 5: return 'Much Easier - Significantly overestimated'
+      default: return 'Spot On - Accurate estimation!'
     }
   }
 
@@ -71,15 +81,21 @@ export function AccuracyRatingSelector({
       <div className="rating-header">
         <div className="rating-title">Complete Project</div>
         <div className="project-summary">{project.name}</div>
-        <div className="project-details">
-          Cost: {project.cost} • Benefit: {project.benefit}
-          {project.isBossBattle && <span className="boss-badge"><Star size={14} fill="currentColor" /> Boss Battle</span>}
+        <div className="meta-chips">
+          <span className="chip chip-grey">C:{project.cost}</span>
+          <span className="chip chip-grey">B:{project.benefit}</span>
+          {project.isBossBattle && (
+            <span className="boss-star" aria-label="Boss Battle">
+              <Star size={14} />
+            </span>
+          )}
         </div>
       </div>
 
       <div className="rating-body">
         <div className="rating-question">
-          <label className="field-label">How accurate was your initial estimation?</label>
+          <label className="field-label">How was the actual effort compared to your estimate?</label>
+          <div className="question-helper">This won’t change XP; it improves future estimates.</div>
           <div className="accuracy-scale">
             {[1, 2, 3, 4, 5].map((rating) => (
               <button
@@ -90,12 +106,14 @@ export function AccuracyRatingSelector({
               >
                 <div className="rating-number">{rating}</div>
                 <div className="rating-label">
-                  {Array.from({ length: rating }, (_, i) => (
-                    <Star key={i} size={14} fill="currentColor" />
-                  ))}
+                  {getRatingLabel(rating)}
                 </div>
               </button>
             ))}
+          </div>
+          <div className="scale-legend">
+            <span className="legend-left">Underestimated</span>
+            <span className="legend-right">Overestimated</span>
           </div>
           <div className="rating-description">
             {getRatingDescription(selectedRating)}

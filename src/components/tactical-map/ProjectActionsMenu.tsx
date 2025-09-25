@@ -93,46 +93,68 @@ export function ProjectActionsMenu({
       className={`project-actions-menu ${isVisible ? 'visible' : ''}`}
       style={{
         position: 'absolute',
-        left: position.x + 36, // Offset from project node
+        left: position.x + 36,
         top: position.y,
         zIndex: 1000,
       }}
     >
       <div className="menu-header">
         <div className="project-name">{project.name}</div>
-        <div className="project-coords">
-          Cost: {project.cost} • Benefit: {project.benefit}
+        <div className="project-meta">
+          <span className="project-state">
+            <span className="state-pill">{project.is_boss_battle ? 'Focus' : 'Visible'}</span>
+          </span>
+        </div>
+        <div className="meta-chips">
+          <span className="chip chip-grey">C:{project.cost}</span>
+          <span className="chip chip-grey">B:{project.benefit}</span>
+          {project.is_boss_battle && (
+            <span className="boss-star" aria-label="Boss Battle">
+              <Star size={14} />
+            </span>
+          )}
         </div>
       </div>
 
       <div className="menu-actions">
         <button
-          className="menu-action edit-action"
-          onClick={handleEdit}
-        >
-          <Edit size={16} aria-label="Edit project" />
-          Edit Project
-        </button>
-
-        <button
           className="menu-action complete-action"
           onClick={handleComplete}
           disabled={project.status === 'completed'}
         >
-          <Check size={16} aria-label="Complete project" />
-          {project.status === 'completed' ? 'Completed' : 'Complete'}
+          <span className="action-icon"><Check size={16} aria-label="Complete project" /></span>
+          <span className="action-copy">
+            <span className="action-title">{project.status === 'completed' ? 'Completed' : 'Complete'}</span>
+            <span className="action-sublabel">Finalize and rate accuracy</span>
+          </span>
+        </button>
+
+        <button
+          className="menu-action edit-action"
+          onClick={handleEdit}
+        >
+          <span className="action-icon"><Edit size={16} aria-label="Edit project" /></span>
+          <span className="action-copy">
+            <span className="action-title">Edit Project</span>
+            <span className="action-sublabel">Change project details</span>
+          </span>
         </button>
 
         <button
           className="menu-action boss-battle-action"
           onClick={handleToggleBossBattle}
         >
-          {project.is_boss_battle ? (
-            <Star size={16} aria-label="Remove Boss Battle" fill="currentColor" />
-          ) : (
-            <StarOff size={16} aria-label="Make Boss Battle" />
-          )}
-          {project.is_boss_battle ? 'Remove Boss Battle' : 'Make Boss Battle'}
+          <span className="action-icon">
+            {project.is_boss_battle ? (
+              <Star size={16} aria-label="Remove Boss Battle" fill="currentColor" />
+            ) : (
+              <StarOff size={16} aria-label="Make Boss Battle" />
+            )}
+          </span>
+          <span className="action-copy">
+            <span className="action-title">{project.is_boss_battle ? 'Remove Boss Battle' : 'Make Boss Battle'}</span>
+            <span className="action-sublabel">{project.is_boss_battle ? 'Prime work active this week' : 'Mark as prime work this week'}</span>
+          </span>
         </button>
       </div>
     </div>
