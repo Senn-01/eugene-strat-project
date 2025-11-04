@@ -1,0 +1,125 @@
+/* src/styles/features/deep-focus/CapacityMeter.css */
+@layer components {
+  .capacity-meter-container {
+    background: var(--df-card-bg);
+    border: 3px solid var(--df-text);
+    box-shadow: 6px 6px 0px var(--df-text);
+    padding: 1.5rem;
+  }
+
+  .capacity-meter-header {
+    color: var(--df-focus);
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--df-text);
+    padding-bottom: 0.5rem;
+  }
+
+  .capacity-hours-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+  }
+
+  .capacity-hours {
+    font-size: 2rem;
+    font-weight: 900;
+    font-family: var(--font-family-mono, monospace);
+    color: var(--df-focus);
+  }
+
+  .capacity-hours.exceeded {
+    color: var(--df-action);
+  }
+
+  .text-df-special {
+    color: var(--df-special);
+  }
+
+  .text-df-focus {
+    color: var(--df-focus);
+  }
+
+  .capacity-progress-bar {
+    background: var(--df-input-bg);
+    border: 2px solid var(--df-text);
+    height: 32px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .capacity-progress-fill {
+    height: 100%;
+    background: var(--df-focus);
+    transition: width 400ms ease-out, background 200ms ease-out;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 0.5rem;
+  }
+
+  .capacity-progress-fill.exceeded {
+    background: var(--df-special);  /* Pink for warning, not celebration */
+  }
+
+  .capacity-progress-percentage {
+    font-family: var(--font-family-mono, monospace);
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--df-input-bg);
+  }
+
+  .capacity-stats {
+    font-size: 0.875rem;
+    color: var(--df-text);
+    opacity: 0.8;
+    text-align: center;
+  }
+
+  .capacity-message {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--df-focus);
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  .capacity-message.exceeded {
+    color: var(--df-special);  /* Pink for special state */
+  }
+
+  .capacity-no-target {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--df-text);
+    opacity: 0.6;
+    font-size: 0.875rem;
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 1024px) {
+    .capacity-meter-container {
+      padding: 1rem;
+    }
+
+    .capacity-hours {
+      font-size: 1.5rem;
+    }
+
+    .capacity-progress-bar {
+      height: 24px;
+    }
+
+    .capacity-progress-percentage {
+      font-size: 0.75rem;
+    }
+  }
+}

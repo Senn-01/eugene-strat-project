@@ -1,0 +1,177 @@
+/* src/styles/features/deep-focus/ActivityFeed.css */
+@layer components {
+  .activity-feed-container {
+    background: var(--df-card-bg);
+    border: 3px solid var(--df-text);
+    box-shadow: 6px 6px 0px var(--df-text);
+    padding: 1.5rem;
+  }
+
+  .activity-feed-header {
+    color: var(--df-focus);
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--df-text);
+    padding-bottom: 0.5rem;
+  }
+
+  .activity-feed-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .session-card {
+    background: var(--df-input-bg);
+    border: 2px solid var(--df-text);
+    box-shadow: 3px 3px 0px var(--df-text);
+    padding: 1rem;
+    transition: all 150ms ease-out;
+  }
+
+  .session-card:hover {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0px var(--df-text);
+    cursor: pointer;
+  }
+
+  .session-card:focus-visible {
+    outline: 3px solid var(--df-focus);
+    outline-offset: 2px;
+    border: 3px solid var(--df-focus);
+  }
+
+  .session-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .session-card-time {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--df-focus);
+    text-transform: uppercase;
+    font-family: var(--font-family-mono, monospace);
+  }
+
+  .session-card-xp {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--df-text);
+    opacity: 0.6;
+    font-family: var(--font-family-mono, monospace);
+  }
+
+  .session-card-project {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--df-text);
+    margin-bottom: 0.25rem;
+  }
+
+  .session-card-goal {
+    font-size: 0.875rem;
+    color: var(--df-text);
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .session-card-goal-icon {
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Status Colors - APPROVED PALETTE ONLY */
+  .goal-completed {
+    color: var(--df-focus);     /* Dark Green - success */
+  }
+
+  .goal-partial {
+    color: var(--df-special);   /* Pink - special state */
+  }
+
+  .goal-not-completed {
+    color: var(--df-text);      /* Black - neutral */
+    opacity: 0.5;               /* Reduced intensity */
+  }
+
+  .goal-not-set {
+    color: var(--df-text);
+    opacity: 0.3;
+  }
+
+  .session-card-mindset {
+    display: inline-flex;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--df-text);
+  }
+
+  /* Mindset Badges - APPROVED PALETTE ONLY */
+  .mindset-high {
+    background: var(--df-focus);    /* Dark Green */
+    color: var(--df-input-bg);      /* White text */
+  }
+
+  .mindset-medium {
+    background: var(--df-card-bg);  /* Cream */
+    color: var(--df-text);          /* Black text */
+    border: 2px solid var(--df-text);
+  }
+
+  .mindset-low {
+    background: var(--df-input-bg); /* White */
+    color: var(--df-text);          /* Black text */
+    border: 2px solid var(--df-text);
+    opacity: 0.7;
+  }
+
+  .activity-feed-empty {
+    text-align: center;
+    padding: 2rem;
+    color: var(--df-text);
+    opacity: 0.5;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: var(--font-family-mono, monospace);
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 1024px) {
+    .activity-feed-container {
+      padding: 1rem;
+    }
+
+    .session-card {
+      padding: 0.875rem;
+    }
+
+    .session-card-time,
+    .session-card-xp {
+      font-size: 0.75rem;
+    }
+
+    .session-card-project {
+      font-size: 0.875rem;
+    }
+
+    .session-card-goal {
+      font-size: 0.75rem;
+    }
+  }
+}

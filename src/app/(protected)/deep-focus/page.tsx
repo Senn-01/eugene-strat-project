@@ -1,15 +1,20 @@
 'use client'
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { SessionSetup } from '@/components/deep-focus/SessionSetup';
 import { ActiveSession } from '@/components/deep-focus/ActiveSession';
 import { SessionComplete } from '@/components/deep-focus/SessionComplete';
-import { DailyCommitmentSlider } from '@/components/deep-focus/DailyCommitmentSlider';
+// import { DailyCommitmentSlider } from '@/components/deep-focus/DailyCommitmentSlider'; // Story 1.8: Removed - replaced by DailyCapacityMeter
 import { useDeepFocusState } from '@/components/deep-focus/useDeepFocusState';
 import { MindsetLevel } from '@/components/deep-focus/types';
+// Story 1.8: New Components
+import { DailyIntentionModal } from '@/components/deep-focus/DailyIntentionModal';
+import { DailyCapacityMeter } from '@/components/deep-focus/DailyCapacityMeter';
+import { TodaysActivityFeed } from '@/components/deep-focus/TodaysActivityFeed';
 
 export default function DeepFocusPage() {
   const { state, actions } = useDeepFocusState();
+  const hasCheckedIntention = useRef(false);
 
   // Load initial data on mount
   useEffect(() => {
@@ -17,13 +22,29 @@ export default function DeepFocusPage() {
     actions.loadDailyStats();
   }, []); // Empty dependency array since functions are now stable
 
+  // Story 1.8: Check if daily intention modal should be shown (once per page load)
+  useEffect(() => {
+    // Only check ONCE after dailyStats has loaded
+    if (state.dailyStats !== null && !hasCheckedIntention.current) {
+      hasCheckedIntention.current = true;
+
+      // Show modal only if no intention set for today
+      if (!state.dailyStats.daily_intention) {
+        actions.showDailyIntentionModal();
+      }
+    }
+  }, [state.dailyStats, actions]); // Run when dailyStats changes
+
   const handleSessionComplete = () => {
     // Timer reached zero - transition to completion phase for mindset selection
     actions.transitionToComplete();
   };
 
-  const handleMindsetSubmit = (mindset: MindsetLevel) => {
-    actions.completeSession(mindset);
+  const handleMindsetSubmit = (
+    mindset: MindsetLevel,
+    goalData?: { goalCompleted: boolean | null; sessionNotes?: string }
+  ) => {
+    actions.completeSession(mindset, goalData);
   };
 
   const handleNewSession = () => {
@@ -36,6 +57,15 @@ export default function DeepFocusPage() {
 
   return (
     <div className="deep-focus-page" data-page-theme="deep-focus">
+      {/* Story 1.8: Daily Intention Modal */}
+      <DailyIntentionModal
+        isOpen={state.showDailyIntentionModal}
+        availableProjects={state.availableProjects}
+        onSetIntention={actions.createDailyIntention}
+        onSkip={actions.hideDailyIntentionModal}
+        isLoading={state.isLoading}
+      />
+
       <div className="deep-focus-container">
         <div className="deep-focus-main">
 
@@ -78,6 +108,7 @@ export default function DeepFocusPage() {
                   duration={state.activeSession.duration}
                   willpower={state.activeSession.willpower}
                   projectName={state.activeSession.projectName}
+                  sessionGoal={state.activeSession.sessionGoal}
                   onMindsetSubmit={handleMindsetSubmit}
                   onNewSession={handleNewSession}
                   isLoading={state.isLoading}
@@ -90,13 +121,19 @@ export default function DeepFocusPage() {
           {/* Sidebar */}
           <div className="deep-focus-sidebar">
 
-            {/* Daily Commitment Slider - Always Visible */}
-            <DailyCommitmentSlider
-              currentTarget={state.dailyCommitment.target}
-              completedSessions={state.dailyCommitment.current}
-              onUpdateCommitment={actions.setDailyCommitment}
+            {/* Story 1.8: Daily Capacity Meter - Hour-based progress */}
+            <DailyCapacityMeter
+              dailyStats={state.dailyStats}
+              isLoading={state.isLoading}
             />
 
+            {/* Story 1.8: Today's Activity Feed - Session history */}
+            <TodaysActivityFeed
+              sessions={state.dailyStats?.today_sessions || []}
+              isLoading={state.isLoading}
+            />
+
+            {/* Story 1.8: DailyCommitmentSlider removed - replaced by DailyCapacityMeter (hour-based vs session-based) */}
 
           </div>
         </div>

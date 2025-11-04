@@ -1,0 +1,170 @@
+/* src/styles/features/deep-focus/DailyIntentionModal.css */
+@layer components {
+  .daily-intention-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 200ms ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .daily-intention-modal {
+    background: var(--df-card-bg);
+    border: 4px solid var(--df-text);
+    box-shadow: 16px 16px 0px var(--df-text);
+    max-width: 500px;
+    width: 90%;
+    animation: slideUp 300ms ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .daily-intention-header {
+    background: var(--df-focus);
+    color: var(--df-card-bg);
+    padding: 1.5rem;
+    border-bottom: 4px solid var(--df-text);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 900;
+    font-size: 1.25rem;
+  }
+
+  .daily-intention-body {
+    padding: 2rem;
+  }
+
+  .daily-intention-slider {
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: var(--df-input-bg);
+    border: 2px solid var(--df-text);
+    outline: none;
+  }
+
+  .daily-intention-slider:focus-visible {
+    border: 3px solid var(--df-focus);
+    box-shadow: 0 0 0 2px var(--df-focus);
+  }
+
+  .daily-intention-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    background: var(--df-action);
+    border: 3px solid var(--df-text);
+    cursor: pointer;
+    box-shadow: 2px 2px 0px var(--df-text);
+  }
+
+  .daily-intention-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    background: var(--df-action);
+    border: 3px solid var(--df-text);
+    cursor: pointer;
+    box-shadow: 2px 2px 0px var(--df-text);
+  }
+
+  /* Form field styles moved to components.css for reusability */
+
+  .btn-primary-df {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--df-action);
+    color: var(--df-text);
+    border: 3px solid var(--df-text);
+    box-shadow: 4px 4px 0px var(--df-text);
+    cursor: pointer;
+    transition: all 150ms ease-out;
+  }
+
+  .btn-primary-df:hover:not(:disabled) {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--df-text);
+  }
+
+  .btn-primary-df:focus-visible {
+    outline: 3px solid var(--df-focus);
+    outline-offset: 2px;
+  }
+
+  .btn-primary-df:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-secondary-df {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--df-input-bg);
+    color: var(--df-text);
+    border: 3px solid var(--df-text);
+    box-shadow: 4px 4px 0px var(--df-text);
+    cursor: pointer;
+    transition: all 150ms ease-out;
+  }
+
+  .btn-secondary-df:hover:not(:disabled) {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--df-text);
+  }
+
+  .btn-secondary-df:focus-visible {
+    outline: 3px solid var(--df-focus);
+    outline-offset: 2px;
+  }
+
+  .btn-secondary-df:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 1024px) {
+    .daily-intention-modal {
+      width: 95%;
+      max-width: none;
+    }
+
+    .daily-intention-header {
+      padding: 1rem;
+      font-size: 1rem;
+    }
+
+    .daily-intention-body {
+      padding: 1.5rem;
+    }
+
+    .btn-primary-df,
+    .btn-secondary-df {
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+    }
+  }
+}

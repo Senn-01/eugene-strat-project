@@ -35,6 +35,18 @@ export function ActiveSession({ session, onComplete, onInterrupt }: ActiveSessio
           <h1 className="project-name text-3xl font-bold mb-4 font-mono uppercase letter-spacing-wide">
             {session.projectName}
           </h1>
+
+          {/* Session Goal Display */}
+          {session.sessionGoal && (
+            <div className="session-goal-display mt-4">
+              <div className="text-sm font-semibold opacity-70 mb-1 uppercase letter-spacing-wide">
+                Session Goal:
+              </div>
+              <div className="text-lg font-mono text-df-focus">
+                {session.sessionGoal}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Timer Display - Minimal brutalist styling for focus */}

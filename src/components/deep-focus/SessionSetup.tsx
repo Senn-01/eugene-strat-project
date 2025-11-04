@@ -9,7 +9,7 @@ interface SessionSetupProps {
   projects: Project[];
   phase: SessionPhase;
   sessionConfig: SessionConfig | null;
-  onConfigureSession: (projectId: string, duration: SessionDuration) => void;
+  onConfigureSession: (projectId: string, duration: SessionDuration, goal?: string) => void;
   onStartSession: (willpower: WillpowerLevel) => void;
   onBack: () => void;
   isLoading: boolean;
@@ -26,6 +26,7 @@ export function SessionSetup({
 }: SessionSetupProps) {
   const [selectedProject, setSelectedProject] = useState<string>('');
   const [duration, setDuration] = useState<SessionDuration>(60);
+  const [sessionGoal, setSessionGoal] = useState<string>('');
 
   // Step 1: Project + Duration Selection
   if (phase === 'setup') {
@@ -33,7 +34,7 @@ export function SessionSetup({
 
     const handleContinue = () => {
       if (selectedProject) {
-        onConfigureSession(selectedProject, duration);
+        onConfigureSession(selectedProject, duration, sessionGoal.trim() || undefined);
       }
     };
 
@@ -88,11 +89,26 @@ export function SessionSetup({
               </div>
             </div>
 
+            {/* Session Goal (Optional) */}
+            <div>
+              <label className="field-label">
+                Session Goal <span className="opacity-50">(Optional)</span>
+              </label>
+              <input
+                type="text"
+                value={sessionGoal}
+                onChange={(e) => setSessionGoal(e.target.value)}
+                placeholder="What will you accomplish?"
+                maxLength={200}
+                className="field-input w-full"
+              />
+            </div>
+
             {/* Continue Button */}
             <button
               onClick={handleContinue}
               disabled={!selectedProject || activeProjects.length === 0}
-              className={`btn-primary ${
+              className={`btn-primary w-full ${
                 (!selectedProject || activeProjects.length === 0) ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
