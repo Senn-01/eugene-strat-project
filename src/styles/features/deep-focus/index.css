@@ -3,6 +3,11 @@
 /* Import DeepFocus component styles */
 @import './components.css';
 
+/* Story 1.8: New Component Styles */
+@import './DailyIntentionModal.css';
+@import './ActivityFeed.css';
+@import './CapacityMeter.css';
+
 /* DeepFocus Page Layout */
 @layer components {
   .deep-focus-page {
@@ -19,7 +24,7 @@
 
   .deep-focus-main {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 3fr 2fr; /* 60/40 split - Story 1.8 */
     gap: var(--spacing-lg);
     align-items: start;
   }
@@ -33,6 +38,8 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
+    position: sticky;
+    top: calc(80px + var(--spacing-lg)); /* Stick below header */
   }
 
   /* Session Components Spacing */
@@ -58,6 +65,10 @@
     .deep-focus-main {
       grid-template-columns: 1fr;
       gap: var(--spacing-md);
+    }
+
+    .deep-focus-sidebar {
+      position: static; /* Remove sticky on mobile */
     }
 
     .deep-focus-container {

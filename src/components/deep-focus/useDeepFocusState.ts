@@ -4,7 +4,15 @@
 import { useState, useCallback, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Project } from '@/lib/types/project.types';
-import { DeepFocusState, SessionConfig, WillpowerLevel, MindsetLevel, SessionDuration } from './types';
+import {
+  DeepFocusState,
+  SessionConfig,
+  WillpowerLevel,
+  MindsetLevel,
+  SessionDuration,
+  DailyStats,
+  GoalCompletionStatus,
+} from './types';
 import {
   INTERRUPTED_SESSION_XP,
   calculateSessionXP,
@@ -19,6 +27,10 @@ const initialState: DeepFocusState = {
   dailyCommitment: { target: null, current: 0 },
   isLoading: false,
   error: null,
+  // Story 1.8: New fields
+  sessionGoal: '',
+  dailyStats: null,
+  showDailyIntentionModal: false,
 };
 
 export function useDeepFocusState() {
@@ -54,21 +66,27 @@ export function useDeepFocusState() {
     }
   }, []);
 
-  // Load daily commitment and today's sessions count
+  // Load daily stats using new RPC (replaces get_today_sessions)
   const loadDailyStats = useCallback(async () => {
     try {
-      const result = await supabase.rpc('get_today_sessions');
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError || !user) throw new Error('User not authenticated');
 
-      if (result.error) throw result.error;
+      const { data, error } = await supabase.rpc('get_daily_stats', {
+        user_id_param: user.id
+      });
 
-      console.log('DeepFocus: Daily stats loaded:', result.data);
+      if (error) throw error;
 
-      const stats = result.data;
+      console.log('DeepFocus: Daily stats loaded:', data);
+
       setState(prev => ({
         ...prev,
+        dailyStats: data as DailyStats,
+        // Maintain backward compatibility with dailyCommitment
         dailyCommitment: {
-          target: stats.commitment,
-          current: stats.completed_sessions,
+          target: data?.daily_intention?.target_hours || null,
+          current: data?.sessions_completed || 0,
         },
       }));
     } catch (error) {
@@ -123,8 +141,8 @@ export function useDeepFocusState() {
     loadDailyStats();
   }, []); // Empty dependency array since functions are now stable
 
-  // Step 1: Configure session (project + duration)
-  const configureSession = useCallback((projectId: string, duration: SessionDuration) => {
+  // Step 1: Configure session (project + duration + goal)
+  const configureSession = useCallback((projectId: string, duration: SessionDuration, goal?: string) => {
     setState(prev => {
       const project = prev.availableProjects.find(p => p.id === projectId);
       if (!project) return prev;
@@ -136,6 +154,7 @@ export function useDeepFocusState() {
           projectName: project.name,
           duration,
         },
+        sessionGoal: goal || '',
         phase: 'willpower-select',
       };
     });
@@ -143,8 +162,9 @@ export function useDeepFocusState() {
 
   // Step 2: Start session with willpower assessment
   const startSession = useCallback(async (willpower: WillpowerLevel) => {
-    // Get current session config before starting async operation
+    // Get current session config and goal before starting async operation
     const currentConfig = state.sessionConfig;
+    const currentGoal = state.sessionGoal;
     if (!currentConfig) {
       setState(prev => ({ ...prev, error: 'No session configuration found' }));
       return;
@@ -157,7 +177,7 @@ export function useDeepFocusState() {
       const { data: { user }, error: userError } = await supabase.auth.getUser();
       if (userError || !user) throw new Error('User not authenticated');
 
-      // Create session record
+      // Create session record with goal
       const { data: sessionData, error } = await supabase
         .from('sessions')
         .insert({
@@ -166,6 +186,7 @@ export function useDeepFocusState() {
           duration: currentConfig.duration,
           willpower,
           difficulty_quote: getDifficultyQuote(willpower, currentConfig.duration),
+          session_goal: currentGoal || null,
         })
         .select()
         .single();
@@ -181,6 +202,7 @@ export function useDeepFocusState() {
         difficultyQuote: sessionData.difficulty_quote,
         startedAt: new Date(sessionData.started_at),
         remainingMs: currentConfig.duration * 60 * 1000,
+        sessionGoal: currentGoal || undefined,
       };
 
       // Store in localStorage for persistence
@@ -194,6 +216,7 @@ export function useDeepFocusState() {
         phase: 'active',
         activeSession,
         sessionConfig: null, // Clear config after starting
+        sessionGoal: '', // Clear goal after starting
         isLoading: false,
       }));
     } catch (error) {
@@ -203,10 +226,13 @@ export function useDeepFocusState() {
         isLoading: false,
       }));
     }
-  }, [state.sessionConfig]);
+  }, [state.sessionConfig, state.sessionGoal]);
 
   // Complete session
-  const completeSession = useCallback(async (mindset: MindsetLevel) => {
+  const completeSession = useCallback(async (
+    mindset: MindsetLevel,
+    goalData?: { goalCompleted: boolean | null; sessionNotes?: string }
+  ) => {
     // Get current session before starting async operation
     const currentSession = state.activeSession;
     if (!currentSession) {
@@ -230,6 +256,19 @@ export function useDeepFocusState() {
 
       if (error) throw error;
 
+      // Update goal completion and notes if provided
+      if (goalData) {
+        const { error: updateError } = await supabase
+          .from('sessions')
+          .update({
+            goal_completed: goalData.goalCompleted,
+            session_notes: goalData.sessionNotes || null,
+          })
+          .eq('id', currentSession.id);
+
+        if (updateError) console.error('Failed to update goal data:', updateError);
+      }
+
       // Clear localStorage
       localStorage.removeItem('activeSession');
 
@@ -247,14 +286,13 @@ export function useDeepFocusState() {
         window.dispatchEvent(event);
       }
 
+      // Reload daily stats to update activity feed
+      await loadDailyStats();
+
       // Update state - don't change phase (already set to 'complete' by transitionToComplete)
       setState(prev => ({
         ...prev,
         isLoading: false,
-        dailyCommitment: {
-          ...prev.dailyCommitment,
-          current: prev.dailyCommitment.current + 1,
-        },
       }));
     } catch (error) {
       setState(prev => ({
@@ -263,7 +301,53 @@ export function useDeepFocusState() {
         isLoading: false,
       }));
     }
-  }, [state.activeSession]);
+  }, [state.activeSession, loadDailyStats]);
+
+  // Create daily intention (Story 1.8)
+  const createDailyIntention = useCallback(async (hours: number, projectId?: string) => {
+    setState(prev => ({ ...prev, isLoading: true }));
+    try {
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError || !user) throw new Error('User not authenticated');
+
+      const { error } = await supabase
+        .from('daily_intentions')
+        .upsert({
+          user_id: user.id,
+          date: new Date().toISOString().split('T')[0],
+          target_hours: hours,
+          priority_project_id: projectId || null,
+        });
+
+      if (error) throw error;
+
+      // Reload daily stats
+      await loadDailyStats();
+
+      setState(prev => ({
+        ...prev,
+        showDailyIntentionModal: false,
+        isLoading: false,
+      }));
+    } catch (error) {
+      console.error('Failed to create daily intention:', error);
+      setState(prev => ({
+        ...prev,
+        error: 'Failed to set daily intention',
+        isLoading: false,
+      }));
+    }
+  }, [loadDailyStats]);
+
+  // Show daily intention modal
+  const showDailyIntentionModal = useCallback(() => {
+    setState(prev => ({ ...prev, showDailyIntentionModal: true }));
+  }, []);
+
+  // Hide daily intention modal
+  const hideDailyIntentionModal = useCallback(() => {
+    setState(prev => ({ ...prev, showDailyIntentionModal: false }));
+  }, []);
 
   // Interrupt session
   const interruptSession = useCallback(async () => {
@@ -381,6 +465,10 @@ export function useDeepFocusState() {
       resetToSetup,
       loadDailyStats,
       transitionToComplete, // Timer completion → show mindset selection
+      // Story 1.8: New actions
+      createDailyIntention,
+      showDailyIntentionModal,
+      hideDailyIntentionModal,
     }
   };
 }

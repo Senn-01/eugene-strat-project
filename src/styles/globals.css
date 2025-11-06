@@ -63,6 +63,11 @@
   --modal-width: 740px;
   --modal-height: 720px;
   --nav-size: 48px;
+
+  /* Tailwind v4 Focus Ring Override - Neo-Brutalist Design System */
+  /* Disable default focus rings globally - all components use custom borders/shadows */
+  --default-ring-width: 0px;
+  --default-ring-color: transparent;
 }
 
 /* Base Styles */
