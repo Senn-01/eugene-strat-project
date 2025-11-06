@@ -80,6 +80,7 @@
 /* Feature Styles */
 @import "./features/tactical-map/index.css" layer(components);
 @import "./features/deep-focus/index.css" layer(components);
+@import "./features/analytics/index.css" layer(components);
 
 /* Theme System */
 @import "./themes/page-themes.css";
